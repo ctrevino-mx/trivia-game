@@ -1,0 +1,95 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 300px auto 300px;
+    grid-template-rows: auto auto auto auto auto 20px;
+    grid-gap: 3px;
+    background-color: gainsboro;
+}
+
+header {
+    grid-column: span 3; 
+    /* border: 2px solid black; */
+    display: flex;
+    justify-content: center;
+}
+
+.trivia-controls {
+    width: 600px;
+    background-color: gainsboro;
+    /* border: 2px solid black; */
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-around;
+}
+
+#timer-box {
+    /* width: 100px; */
+    border-color: sandybrown;
+    /* border: 2px solid black; */
+    grid-column: span 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.question {
+    border: 1px solid black;
+    grid-column: span 2;
+    padding: 10px 25px;
+    background-color: white;
+}
+
+#review-later-log {
+    border: 1px solid black;
+    grid-column: span 1;
+    padding: 0 0; 
+    /* display: flex; */
+    justify-content: flex-start;
+    align-items: flex-start; 
+}
+
+#review-later-log h4 {
+    /* border: 2px solid black; */
+    margin-top: 5px;
+}
+#review-later-log ul {
+    /* border: 2px solid black; */
+    margin-top: -5px;
+}
+#review-later-log hr {
+    margin-top: -20px;
+}
+
+nav {
+    /* border: 1px solid black; */
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-button {
+    width: 35px;
+}
+.submit-section {
+    /* border: 1px solid black; */
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#submit-button{
+    margin-right: 10px;
+}
+
+footer{
+    background-color: black;
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+
+}
+
+footer p{
+    margin-top: 2px;
+}
