@@ -1,7 +1,7 @@
 .wrapper {
     display: grid;
     grid-template-columns: 300px auto 300px;
-    grid-template-rows: auto auto auto auto auto 20px;
+    grid-template-rows: auto auto auto auto 20px;
     grid-gap: 3px;
     background-color: gainsboro;
 }
@@ -62,19 +62,24 @@ header {
 nav {
     /* border: 1px solid black; */
     grid-column: span 2;
-    display: flex;
-    justify-content: center;
+    margin-left: 440px;
+    /* display: flex; */
+    /* justify-content: center; */
 }
 
 .nav-button {
     width: 35px;
 }
-.submit-section {
+
+#submit-button {
+    margin-left: 250px;
+}
+/* .submit-section {
     /* border: 1px solid black; */
     grid-column: span 2;
     display: flex;
     justify-content: flex-end;
-}
+} */
 
 #submit-button{
     margin-right: 10px;
