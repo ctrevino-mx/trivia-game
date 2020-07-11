@@ -1,41 +1,100 @@
+ body {
+    /* background-image: url(http://getwallpapers.com/wallpaper/full/c/b/5/336000.jpg); */
+    /* background-size: fill; */
+    /* background-position: 0% 0%;*/
+}
+
 .wrapper {
+    /* background-image: url(http://getwallpapers.com/wallpaper/full/b/2/1/336826.jpg); */
+    background-image: url(../images/StarWars.jpg);
+    background-size: cover;
+    background-position: 0% 60%;
+    background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 300px auto 300px;
-    grid-template-rows: auto auto auto auto 20px;
+    grid-template-rows: auto 40px 250px 40px 20px;
     grid-gap: 3px;
-    background-color: gainsboro;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+
 }
 
 header {
     grid-column: span 3; 
-    /* border: 2px solid black; */
     display: flex;
     justify-content: center;
 }
 
 .trivia-controls {
     width: 600px;
-    background-color: gainsboro;
-    /* border: 2px solid black; */
     grid-column: span 2;
     display: flex;
     justify-content: space-around;
 }
 
+#go-button {
+    height: 20px;
+}
+
 #timer-box {
-    /* width: 100px; */
-    border-color: sandybrown;
-    /* border: 2px solid black; */
     grid-column: span 1;
     display: flex;
     justify-content: flex-end;
+    margin-right: 10px;
 }
 
-.question {
+.questionLayout {
     border: 1px solid black;
     grid-column: span 2;
     padding: 10px 25px;
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+}
+
+#questionDescription {
+    width: 600px;
+}
+
+#questionAnswers {
+    height: 180px;
+    width: 600px;
+    /* border: 1px solid black;     */
+}
+
+#questionAnswers li {
+    margin-top: 10px; 
+    list-style-type: none;
+}
+
+#questionAnswers li a {
+    color: black;
+    text-decoration: none;
+}
+
+#questionImage {
+    width: 250px;
+    height: 220px;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* align-content: center; */
+}
+
+.x {
+    width: 200px;
+    height: 180px;
+    object-fit: fill; 
+    border: 1px solid black;
+}
+
+
+
+.questionLayout hr {
+    width: 600px;
+    margin-top: 0px;
 }
 
 #review-later-log {
@@ -50,11 +109,13 @@ header {
 #review-later-log h4 {
     /* border: 2px solid black; */
     margin-top: 5px;
+    margin-left: 10px;
 }
 #review-later-log ul {
     /* border: 2px solid black; */
     margin-top: -5px;
 }
+
 #review-later-log hr {
     margin-top: -20px;
 }
@@ -73,15 +134,6 @@ nav {
 
 #submit-button {
     margin-left: 250px;
-}
-/* .submit-section {
-    /* border: 1px solid black; */
-    grid-column: span 2;
-    display: flex;
-    justify-content: flex-end;
-} */
-
-#submit-button{
     margin-right: 10px;
 }
 
