@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia</title>
@@ -20,11 +21,12 @@
             </select>
             <select id="number-questions">
                 <option value="">--Number of questions--</option>
+                <option value="2">2</option>
                 <option value="5">5</option>
                 <option value="10">10</option> 
             </select>
             <label><input type="checkbox" id="set-timer" value="yes">Timer?</input></label>
-            <button id="go-button">Go!</button>
+            <button id="go-button" class="general-button">Go!</button>
         </div>
         <div id="timer-box">Timer</div>
         <div class = "questionLayout">
@@ -36,16 +38,16 @@
  
         <div id="review-later-log">
             <h4>Review-later list</h4>
-            <hr style="width:100%;text-align:left;margin-left:0">
+            <!-- <hr style="width:100%;text-align:left;margin-left:0"> -->
             <ul>
                 <li>Question 2</li>
                 <li>Question 3</li>
             </ul>
         </div>        
         <nav>
-            <button id="go-first-button" class='nav-button'><<</button>
+            <button id="go-first-button" class="nav-button" class="general-button"><<</button>
             <button id="go-down-button" class='nav-button'><</button>
-            <button id="go-up-button" class='nav-button'>></button>
+            <button id="go-next-button" class="nav-button, general-button">Next</button>
             <button id="go-last" class='nav-button'>>></button>
             <button id="submit-button">Submit answers</button>
         </nav>
