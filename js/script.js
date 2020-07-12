@@ -33,7 +33,20 @@ const poolQuestionsArray = [
         "correctAnswer": "2",
         "hint": "He is in the dark side",
         "imagePath": "images/Image0.jpeg"
-      }  
+      },
+      {
+        "questionNumber": "3",      
+        "question": "In which town do the Simpsons reside??",
+        "answers": ["Shelbyville",
+                    "Springfield",
+                    "Ogdenville",
+                    "Amitville"],
+        "points": "2",
+        "correctAnswer": "0",
+        "hint": "He is in the dark side",
+        "imagePath": "images/Star-Wars-Logo-02.jpg"
+      },
+
 ]
 
 const triviaQuestionsArray = [];
@@ -50,12 +63,12 @@ class TriviaQuestion {
         this.correctAnswer = parseInt(correctAnswer);
         this.hint = hint;
         this.imagePath = imagePath;
-        this.userAnswer = null;
+        this.userAnswer = '';
         this.isHinted = false;
         this.toReviewLater = false;
         this.htmlCanvasQuestion = document.querySelector('#questionDescription');
         this.htmlCanvasAnswers = document.querySelector('#questionAnswers')
-        this.htmlCanvasImage = document.querySelector('#questionImage');
+        this.htmlCanvasImage = document.querySelector('#questionImageCanvas');
     }
     displayQuestion = () => {
         let questionIndicator = '';
@@ -72,6 +85,9 @@ class TriviaQuestion {
     // clearQuestion = () => {
     //     this.htmlCanvasQuestion.textContent = "";        
     // };
+    selectOption = (e) => {
+        console.log(event.target);
+    };
     initAnswersFrame = () => {
         const myListOfAnswers = document.createElement('ul');
         for (let i = 0; i < 4; i++) {
@@ -80,17 +96,18 @@ class TriviaQuestion {
             myListOfAnswers.appendChild(myAnswer);
         }
         this.htmlCanvasAnswers.appendChild(myListOfAnswers);
-        console.log(this.htmlCanvasAnswers);
     };
     displayAnswers = () => {
         const htmlCanvasUl = document.querySelectorAll('#questionAnswers ul');
         const htmlCanvasLi = document.querySelectorAll('#questionAnswers ul li');
         for (let i = 0; i < this.answers.length; i++) {
  //           htmlCanvasLi[i].innerText = this.answers[i];
-            htmlCanvasLi[i].innerHTML = `<a href="#">${this.answers[i]}</a>`
+            if (this.questionNumber === 0) {
+                htmlCanvasLi[i].innerHTML = `<a href="#">${this.answers[i]}</a>`
+            } else {
+                htmlCanvasLi[i].innerHTML = `<a href="#">${i+1}. ${this.answers[i]}</a>`
+            }
         };
-        console.log(htmlCanvasLi);
-        console.log(this.htmlCanvasAnswers);
     };
     // clearAnswers = () => {
     //     const htmlCanvasLi = document.querySelectorAll('#questionAnswers ul li');
@@ -100,19 +117,19 @@ class TriviaQuestion {
     // };
     initImageFrame = () => {
         const myImage = document.createElement('img');
-        myImage.classList.add('x');       
+        myImage.classList.add('questionImage');       
         this.htmlCanvasImage.appendChild(myImage);        
     }
     displayImage = () => {
-        const myImage = document.querySelector('#questionImage img');
+        const myImage = document.querySelector('#questionImageCanvas img');
         myImage.setAttribute('src', currentQuestion.imagePath);
         // myImage.setAttribute('width', 100);  
         // myImage.setAttribute('heigth', 100);  
     };
     clearImage = () => {
-        const myImage = document.querySelector('#questionImage img');
+        const myImage = document.querySelector('#questionImageCanvas img');
         myImage.setAttribute('src','#');
-    }
+    };
 };
 
 // Creating the instance and displayig the instructions screen 
@@ -139,9 +156,7 @@ function nextQuestion() {
         // currentQuestion.clearAnswers();
         currentQuestion.clearImage();
 
-        console.log(arrayQuestionPosition);
         currentQuestion.questionNumber = poolQuestionsArray[arrayQuestionPosition].questionNumber;
-        // currentQuestion.questionNumber = questionNumber;
         currentQuestion.question = poolQuestionsArray[arrayQuestionPosition].question;
         currentQuestion.answers = poolQuestionsArray[arrayQuestionPosition].answers;
         currentQuestion.points = poolQuestionsArray[arrayQuestionPosition].points;
@@ -171,6 +186,39 @@ function Go() {
         alert('Play the game! Answer the question and then click Next button');
     }
 }
+
 //Assigning the event listener to the button Go
 const uiButtonGo = document.querySelector('#go-button');
 uiButtonGo.addEventListener('click',Go);
+
+// Paintig the option selected by the user
+function paintOptionSelected(e) {
+    const optionSelected = event.target;
+ //   const previousOptionSelected = currentQuestion.userAnswer;
+ //   const uiAllAnchorElements = document.querySelectorAll('#questionAnswers ul li a');
+
+//    if (previousOptionSelected !== '') {
+//        uiAllAnchorElements[previousOptionSelected].classList.remove('questionSelected');
+//    };
+    optionSelected.classList.add('questionSelected');
+}
+
+// Detemining if option selected is right or not
+function evaluateOptionSelected(e) {
+    if (currentQuestion.userAnswer === parseInt(currentQuestion.correctAnswer)) {
+        console.log('Correct answer');
+    } else {
+        console.log('Incorrect answer');
+    }
+}
+
+function processOptionSelected(e) {
+    paintOptionSelected(e);
+    currentQuestion.userAnswer = event.target.innerText.substring(0,1) - 1;
+    evaluateOptionSelected(e);
+};
+
+const liAnswerOptions = document.querySelectorAll('#questionAnswers ul li');
+liAnswerOptions.forEach(option => {
+    option.addEventListener('click',processOptionSelected);
+});

@@ -1,6 +1,6 @@
 .wrapper {
     /* background-image: url(http://getwallpapers.com/wallpaper/full/b/2/1/336826.jpg); */
-    background-image: url(../images/StarWars.jpg);
+    /* background-image: url(../images/StarWars.jpg); */
     background-size: cover;
     background-position: 0% 60%;
     background-repeat: no-repeat;
@@ -9,7 +9,7 @@
     grid-template-rows: auto 40px 300px 40px 20px;
     grid-gap: 3px;
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif */
-    font-family: 'Schoolbell', cursive;
+     font-family: 'Schoolbell', cursive;
 }
 
 header {
@@ -25,17 +25,12 @@ header {
     justify-content: space-around;
 }
 
-/* #go-button {
-    height: 20px;
-    font-family: 'Schoolbell', cursive;
-} */
-
-#timer-box {
+/* #timer-box {
     grid-column: span 1;
     display: flex;
     justify-content: flex-end;
     margin-right: 10px;
-}
+} */
 
 .questionLayout {
     border: 1px solid black;
@@ -50,6 +45,12 @@ header {
 
 #questionDescription {
     width: 600px;
+}
+
+.questionLayout hr {
+    width: 600px;
+    text-align: left;
+    /* margin-top: 0px; */
     /* border: 1px solid black; */
 }
 
@@ -66,33 +67,37 @@ header {
 }
 
 #questionAnswers li a {
-    color: black;
-    text-decoration: none;
+    /* color: black; */
+    /* text-decoration: none; */
 }
 
-#questionImage {
+.questionSelected {
+    color: blue;
+    font-weight: bold;
+}
+
+.questionUnselected {
+    color: black;
+    font-weight: normal; 
+}
+
+#questionImageCanvas {
     width: 250px;
     height: 220px;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     /* align-content: center; */
 }
 
-.x {
+.questionImage {
     width: 200px;
     height: 180px;
     object-fit: fill; 
     border: 1px solid black;
 }
 
-.questionLayout hr {
-    width: 600px;
-    text-align: left;
-    /* margin-top: 0px; */
-    /* border: 1px solid black; */
-}
 
 #review-later-log {
     border: 1px solid black;
