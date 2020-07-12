@@ -41,7 +41,7 @@ const poolQuestionsArray = [
                     "Springfield",
                     "Ogdenville",
                     "Amitville"],
-        "points": "2",
+        "points": "3",
         "correctAnswer": "0",
         "hint": "He is in the dark side",
         "imagePath": "images/Star-Wars-Logo-02.jpg"
@@ -49,9 +49,53 @@ const poolQuestionsArray = [
 
 ]
 
+const poolResponsesArray = [
+    {
+    "minTriviaResultPoints": "",
+    "maxTriviaResultsPoints": "20",      
+    "Title": "Are you serious!",
+    "Speaker": "Mr. Burns says:",
+    "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+    "imagePath": "images/Star-Wars-Logo-02.jpeg"
+    },
+    {
+    "minTriviaResultPoints": "21",
+    "maxTriviaResultsPoints": "40",
+    "Title": "Doooh!",
+    "Speaker": "Homer says:",
+    "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+    "imagePath": "images/Image.jpeg"
+    },
+    {
+    "minTriviaResultPoints": "41",
+    "maxTriviaResultsPoints": "60",      
+    "Title": "A-ha!",
+    "Speaker": "Nelson says:",
+    "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+    "imagePath": "images/Star-Wars-Logo-02.jpeg"
+    },
+    {
+        "minTriviaResultPoints": "61",
+        "maxTriviaResultsPoints": "80",      
+        "Title": "Are you serious!",
+        "Speaker": "Lisa says:",
+        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+        "imagePath": "images/Image0.jpeg"
+    },
+    {
+        "minTriviaResultPoints": "81",
+        "maxTriviaResultsPoints": "100",      
+        "Title": "Are you serious!",
+        "Speaker": "Bart says:",
+        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+        "imagePath": "images/Star-Wars-Logo-02.jpeg"
+    }
+]
+
 const triviaQuestionsArray = [];
 let triviaNumOfQuestions = 0;
-let arrayQuestionPosition = 0; 
+let arrayQuestionPosition = 0;
+let triviaTotalScore = 0; 
 let goButtonClicked = false;
 
 class TriviaQuestion {
@@ -72,15 +116,16 @@ class TriviaQuestion {
     }
     displayQuestion = () => {
         let questionIndicator = '';
-        console.log(this.questionNumber, triviaNumOfQuestions);
-        if (this.questionNumber === 0) {
-            questionIndicator = '';
-        } else if (this.questionNumber === triviaNumOfQuestions) {
-            questionIndicator = `(${this.questionNumber} of ${triviaNumOfQuestions}) LAST QUESTION! - `;
-        } else {
-            questionIndicator = `(${this.questionNumber} of ${triviaNumOfQuestions})`;
+        let questionPoints = '';
+
+        if (this.questionNumber < triviaNumOfQuestions) {
+            questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / `;
+            questionPoints = `(${this.points} points)`;
+        } else if (this.questionNumber === triviaNumOfQuestions  && this.questionNumber > 0) {
+            questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / LAST QUESTION! - `;
+            questionPoints = `(${this.points} points)`;
         }
-        this.htmlCanvasQuestion.textContent = `${questionIndicator} ${this.question}`;        
+        this.htmlCanvasQuestion.textContent = `${questionIndicator} ${this.question} ${questionPoints}`;        
     };
     // clearQuestion = () => {
     //     this.htmlCanvasQuestion.textContent = "";        
@@ -93,6 +138,20 @@ class TriviaQuestion {
         for (let i = 0; i < 4; i++) {
             const myAnswer = document.createElement('li');
             myAnswer.innerHTML = `<a href="#"></a>`;
+// ================
+            myAnswer.addEventListener('click', (e) => {
+                const optionSelected = event.target;
+                optionSelected.classList.add('questionSelected');
+                this.userAnswer = event.target.innerText.substring(0,1) - 1;
+                if (this.userAnswer === parseInt(this.correctAnswer)) {
+                    console.log('Correct answer');
+                    triviaTotalScore += parseInt(this.points);
+                    console.log('Trivia Score', triviaTotalScore);
+                } else {
+                    console.log('Incorrect answer');
+                }            
+            })
+// ================
             myListOfAnswers.appendChild(myAnswer);
         }
         this.htmlCanvasAnswers.appendChild(myListOfAnswers);
@@ -191,34 +250,39 @@ function Go() {
 const uiButtonGo = document.querySelector('#go-button');
 uiButtonGo.addEventListener('click',Go);
 
+
+// ############################################################################################
 // Paintig the option selected by the user
-function paintOptionSelected(e) {
-    const optionSelected = event.target;
+// function paintOptionSelected(e) {
+//     const optionSelected = event.target;
+
  //   const previousOptionSelected = currentQuestion.userAnswer;
  //   const uiAllAnchorElements = document.querySelectorAll('#questionAnswers ul li a');
 
 //    if (previousOptionSelected !== '') {
 //        uiAllAnchorElements[previousOptionSelected].classList.remove('questionSelected');
 //    };
-    optionSelected.classList.add('questionSelected');
-}
+
+//     // optionSelected.classList.add('questionSelected');
+// }
 
 // Detemining if option selected is right or not
-function evaluateOptionSelected(e) {
-    if (currentQuestion.userAnswer === parseInt(currentQuestion.correctAnswer)) {
-        console.log('Correct answer');
-    } else {
-        console.log('Incorrect answer');
-    }
-}
+// function evaluateOptionSelected(e) {
+//     if (currentQuestion.userAnswer === parseInt(currentQuestion.correctAnswer)) {
+//         console.log('Correct answer');
+//     } else {
+//         console.log('Incorrect answer');
+//     }
+// }
 
-function processOptionSelected(e) {
-    paintOptionSelected(e);
-    currentQuestion.userAnswer = event.target.innerText.substring(0,1) - 1;
-    evaluateOptionSelected(e);
-};
+// function processOptionSelected(e) {
+//     console.log('Evento', event.target)
+//     paintOptionSelected(e);
+//     currentQuestion.userAnswer = event.target.innerText.substring(0,1) - 1;
+//     evaluateOptionSelected(e);
+// };
 
-const liAnswerOptions = document.querySelectorAll('#questionAnswers ul li');
-liAnswerOptions.forEach(option => {
-    option.addEventListener('click',processOptionSelected);
-});
+// const liAnswerOptions = document.querySelectorAll('#questionAnswers ul li');
+// liAnswerOptions.forEach(option => {
+//     option.addEventListener('click',processOptionSelected);
+// });
