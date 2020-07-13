@@ -29,11 +29,12 @@ header {
 }
 
 .trivia-controls {
-    width: 600px;
+    width: 730px;
     grid-column: span 2;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    /* border: 1px solid black; */
 }
 
 /* #timer-box {

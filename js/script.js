@@ -129,9 +129,10 @@ const poolFinalFeedbackArray = [
     }
 ]
 
-const triviaQuestionsArray = [];
+//const triviaQuestionsArray = [];
 let triviaNumOfQuestions = 0;
 let arrayQuestionPosition = 0;
+let triviaQuestionCounter = 0;
 let goButtonClicked = false;
 
 // Defining the class for the TRIVIA
@@ -143,7 +144,30 @@ class Trivia {
         this.isThisComplete = false;
         this.title = '';
         this.message = '';
+        this.currentQuestion=0;
+        this.questions = [];
     };
+    defineQuestions = () => {
+        const arraySize = poolQuestionsArray.length;
+        for (let i = 1; i <= triviaNumOfQuestions; i++) {
+            let triviaQuestion = Math.floor(Math.random()*arraySize);
+            if (triviaQuestion === 0) {
+                while (triviaQuestion === 0) {
+                    triviaQuestion = Math.floor(Math.random()*arraySize);
+                };
+            };
+            if (this.questions.indexOf(triviaQuestion) !== -1) {
+                while (this.questions.indexOf(triviaQuestion) !== -1 || triviaQuestion === 0) {
+                    triviaQuestion = Math.floor(Math.random()*arraySize);
+                }
+            }
+            this.questions.push(triviaQuestion);
+        };
+        console.log(this.questions);
+    };
+    getNextQuestion = (pIndex) => {
+        return this.questions[pIndex];
+      };
     evaluateUserAnswer = (pUserAnswer, pCorrectAnswer, pQuestionPoints) => {
         this.totalScore += pQuestionPoints;
         if (pUserAnswer === parseInt(pCorrectAnswer)) {
@@ -155,7 +179,8 @@ class Trivia {
         this.evaluateTriviaStatus();            
     };
     evaluateTriviaStatus = () => {
-        if (arrayQuestionPosition === parseInt(triviaNumOfQuestions)) {
+ //       if (arrayQuestionPosition === parseInt(triviaNumOfQuestions)) {
+        if (triviaQuestionCounter === parseInt(triviaNumOfQuestions)) {
             this.isThisComplete = true;
         }
     }
@@ -205,12 +230,19 @@ class TriviaQuestion {
     displayQuestion = () => {
         let questionIndicator = '';
         let questionPoints = '';
+        console.log('triviaQuestionCounter', typeof(triviaQuestionCounter));
+        console.log('triviaNumOfQuestions', typeof(triviaNumOfQuestions));
 
-        if (this.questionNumber < triviaNumOfQuestions) {
-            questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / `;
+        // if (this.questionNumber < triviaNumOfQuestions) {
+        if (triviaQuestionCounter < triviaNumOfQuestions) {
+ //           questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / `;
+            questionIndicator = `${triviaQuestionCounter} of ${triviaNumOfQuestions} / `; 
             questionPoints = `(${this.points} points)`;
-        } else if (this.questionNumber === triviaNumOfQuestions  && this.questionNumber > 0) {
-            questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / LAST QUESTION! - `;
+//        } else if (this.questionNumber === triviaNumOfQuestions  && this.questionNumber > 0) {
+        } else if (triviaQuestionCounter === triviaNumOfQuestions  && triviaQuestionCounter > 0) {
+//            questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / LAST QUESTION! - `;
+            console.log('I0m here..')
+            questionIndicator = `${triviaQuestionCounter} of ${triviaNumOfQuestions} / LAST QUESTION! - `;
             questionPoints = `(${this.points} points)`;
         }
         this.htmlCanvasQuestion.textContent = `${questionIndicator} ${this.question} ${questionPoints}`;        
@@ -320,29 +352,44 @@ currentQuestion.displayImage();
 // Function to move to next question it is mainly called by the Next button but also called by Go button after setting
 // the number of questions
 function nextQuestion() {
-    console.log(currentQuestion.decisionMade);
-    console.log(arrayQuestionPosition);
 
-    if (currentQuestion.decisionMade && arrayQuestionPosition < triviaNumOfQuestions) {
-        console.log('updating arrayQuestionPosition');
+//    if (currentQuestion.decisionMade && arrayQuestionPosition < triviaNumOfQuestions) {
+    if (currentQuestion.decisionMade && triviaQuestionCounter < triviaNumOfQuestions) {
+        console.log(triviaQuestionCounter);
+        const indexQuestion = currentTrivia.getNextQuestion(triviaQuestionCounter);
+        console.log('Next Question', indexQuestion);
         arrayQuestionPosition++;
-        console.log(arrayQuestionPosition);
+        triviaQuestionCounter++;
+ 
         // currentQuestion.clearQuestion();
         // currentQuestion.clearAnswers();
         currentQuestion.clearImage();
         currentQuestion.decisionMade = false;
 
-        currentQuestion.questionNumber = poolQuestionsArray[arrayQuestionPosition].questionNumber;
-        currentQuestion.question = poolQuestionsArray[arrayQuestionPosition].question;
-        currentQuestion.answers = poolQuestionsArray[arrayQuestionPosition].answers;
-        currentQuestion.points = poolQuestionsArray[arrayQuestionPosition].points;
-        currentQuestion.correctAnswer = poolQuestionsArray[arrayQuestionPosition].correctAnswer;
-        currentQuestion.imagePath = poolQuestionsArray[arrayQuestionPosition].imagePath;
-        currentQuestion.incorrectTitle = poolQuestionsArray[arrayQuestionPosition].incorrectTitle;
-        currentQuestion.incorrectMessage = poolQuestionsArray[arrayQuestionPosition].incorrectMessage;
-        currentQuestion.incorrectImage = poolQuestionsArray[arrayQuestionPosition].incorrectImage;
-        currentQuestion.correctMessage = poolQuestionsArray[arrayQuestionPosition].correctMessage;
-        currentQuestion.correctTitle = poolQuestionsArray[arrayQuestionPosition].correctTitle;
+        currentQuestion.questionNumber = poolQuestionsArray[indexQuestion].questionNumber;
+        currentQuestion.question = poolQuestionsArray[indexQuestion].question;
+        currentQuestion.answers = poolQuestionsArray[indexQuestion].answers;
+        currentQuestion.points = poolQuestionsArray[indexQuestion].points;
+        currentQuestion.correctAnswer = poolQuestionsArray[indexQuestion].correctAnswer;
+        currentQuestion.imagePath = poolQuestionsArray[indexQuestion].imagePath;
+        currentQuestion.incorrectTitle = poolQuestionsArray[indexQuestion].incorrectTitle;
+        currentQuestion.incorrectMessage = poolQuestionsArray[indexQuestion].incorrectMessage;
+        currentQuestion.incorrectImage = poolQuestionsArray[indexQuestion].incorrectImage;
+        currentQuestion.correctMessage = poolQuestionsArray[indexQuestion].correctMessage;
+        currentQuestion.correctTitle = poolQuestionsArray[indexQuestion].correctTitle;
+
+
+        // currentQuestion.questionNumber = poolQuestionsArray[arrayQuestionPosition].questionNumber;
+        // currentQuestion.question = poolQuestionsArray[arrayQuestionPosition].question;
+        // currentQuestion.answers = poolQuestionsArray[arrayQuestionPosition].answers;
+        // currentQuestion.points = poolQuestionsArray[arrayQuestionPosition].points;
+        // currentQuestion.correctAnswer = poolQuestionsArray[arrayQuestionPosition].correctAnswer;
+        // currentQuestion.imagePath = poolQuestionsArray[arrayQuestionPosition].imagePath;
+        // currentQuestion.incorrectTitle = poolQuestionsArray[arrayQuestionPosition].incorrectTitle;
+        // currentQuestion.incorrectMessage = poolQuestionsArray[arrayQuestionPosition].incorrectMessage;
+        // currentQuestion.incorrectImage = poolQuestionsArray[arrayQuestionPosition].incorrectImage;
+        // currentQuestion.correctMessage = poolQuestionsArray[arrayQuestionPosition].correctMessage;
+        // currentQuestion.correctTitle = poolQuestionsArray[arrayQuestionPosition].correctTitle;
 
         currentQuestion.displayQuestion();
         currentQuestion.displayAnswers();
@@ -367,8 +414,12 @@ function Go() {
         alert('Please select the number of questions to go!');
     } else if (!goButtonClicked)  {
         goButtonClicked = true;
-        triviaNumOfQuestions = htmlNumberOfQuestions.value;
+        triviaNumOfQuestions = parseInt(htmlNumberOfQuestions.value);
         currentQuestion.decisionMade = true;
+        
+        //************Getting the questions for the trivia
+        currentTrivia.defineQuestions();
+
         nextQuestion();
     } else {
         alert('Play the game! Answer the question and then click Next button');
@@ -394,7 +445,12 @@ function displayFinalFeedback() {
 const uiButtonRank = document.querySelector('#get-rank-button');
 uiButtonRank.addEventListener('click',displayFinalFeedback);
 
-
+function resetTrivia () {
+    console.log('Resseting trivia...');
+};
+// Assigning the event listener to the button to reset the trivia
+const uiButtonReset = document.querySelector('#reset-button');
+uiButtonReset.addEventListener('click', resetTrivia)
 
 // ############################################################################################
 // Paintig the option selected by the user
@@ -410,5 +466,3 @@ uiButtonRank.addEventListener('click',displayFinalFeedback);
 
 //     // optionSelected.classList.add('questionSelected');
 // }
-
-
