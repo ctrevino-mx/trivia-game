@@ -1,21 +1,24 @@
 .wrapper {
-    /* background-image: url(http://getwallpapers.com/wallpaper/full/b/2/1/336826.jpg); */
-    /* background-image: url(../images/StarWars.jpg); */
-    background-size: cover;
-    background-position: 0% 60%;
-    background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 300px auto 300px;
-    grid-template-rows: auto 40px 300px 40px 20px;
+    grid-template-rows: 200px 60px 345px 60px 30px;
     grid-gap: 3px;
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif */
      font-family: 'Schoolbell', cursive;
+     background-color: #70D1FE;
+     font-size: 18px;
 }
 
 header {
     grid-column: span 3; 
     display: flex;
     justify-content: center;
+    border: 1px solid black;
+    background-image: url(http://getwallpapers.com/wallpaper/full/d/2/1/622543.jpg);
+    background-size: initial; 
+    background-position: 0% 45%;
+    background-repeat: no-repeat;
+
 }
 
 .trivia-controls {
@@ -23,6 +26,7 @@ header {
     grid-column: span 2;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 /* #timer-box {
@@ -40,11 +44,13 @@ header {
     flex-direction: column;
     flex-wrap: wrap;
     align-content: space-around;
-    justify-content: space-around;
+    justify-content: center;
+    background-color:  #FFFFFF;
 }
 
 #questionDescription {
     width: 600px;
+    border: 1px solid black;
 }
 
 .questionLayout hr {
@@ -57,18 +63,18 @@ header {
 #questionAnswers {
     height: 180px;
     width: 600px;
-    border: 1px solid black;    
+    /* border: 1px solid black;     */
 }
 
 #questionAnswers li {
     margin-top: 10px; 
     list-style-type: none;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #questionAnswers li a {
     /* color: black; */
-    /* text-decoration: none; */
+    text-decoration: none;
 }
 
 .questionSelected {
@@ -84,7 +90,7 @@ header {
 #questionImageCanvas {
     width: 250px;
     height: 220px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,10 +98,12 @@ header {
 }
 
 .questionImage {
-    width: 200px;
-    height: 180px;
-    object-fit: fill; 
-    border: 1px solid black;
+    width: 240px;
+    height: 215px;
+    object-fit: contain; 
+    border-radius: 20px;
+    padding: 10px;
+    /* border: 1px solid black; */
 }
 
 
@@ -105,18 +113,27 @@ header {
     padding: 0 0; 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center; 
+    background-image: url(http://getwallpapers.com/wallpaper/full/8/e/9/1413724-simpsons-wallpaper-1080x1920-for-android.jpg);
+    background-size: contain; 
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-color:#18F6FF;
 }
 
 #response-header {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-top: 2px;
+    font-size: 30px;
+    font-weight: bold;
 }
 
-#response-answer {
-    border: 1px solid black;
+#response-comment {
+    /* border: 1px solid black; */
     margin-top: 2px;
+    font-size: 20px;
+    padding-left: 5px;
 }
 
 #response-img {
@@ -170,12 +187,12 @@ nav {
 }
 
 footer{
-    background-color: black;
+    background-color: #FED90F;
     grid-column: span 3;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    color: white;
+    color: #424F46;
 
 }
 

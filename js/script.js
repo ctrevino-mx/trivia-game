@@ -7,54 +7,81 @@ const poolQuestionsArray = [
                     "Set the Number of questions and then click Go! button to start!"],
         "points": "0",
         "correctAnswer": "0",
-        "imagePath": "images/Image0.jpeg",
+        "imagePath": "images/Simpson0.png",
         "incorrectTitle": "",
         "incorrectMessage": "",
         "incorrectImage": ""
       },
     {    
       "questionNumber": "1",      
-      "question": "The most legendary ship in the galaxy, the Millenium Falcon, can can comfotably fit how many people in the cockpit?",
-      "answers": ["Four", 
-                  "Three",
-                  "Six",
-                  "Eight"],
-      "points": "5",
-      "correctAnswer": "0",
-      "imagePath": "images/Star-Wars-Logo-02.jpg",
-      "incorrectTitle": "Lo siento pero la respuesta correcta es la siguiente....",
-      "incorrectMesssage": "Lo siento pero la respuesta correcta es la siguiente....",
+      "question": "What is the name of the father in The Simpsons",
+      "answers": ["Abe", 
+                  "Ned",
+                  "Moe",
+                  "Homer"],
+      "points": "10",
+      "correctAnswer": "3",
+      "imagePath": "images/Simpson1.png",
+      "incorrectTitle": "Dooooh",
+      "incorrectMessage": "Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons.",
       "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
     },
     {
         "questionNumber": "2",      
-        "question": "Quien es el papa de Luke Skylwalker?",
-        "answers": ["Homero Simpson",
-                    "Darth Vader",
-                    "Forrest Gump",
-                    "Mr. Bean"],
+        "question": "What is the name of the youngest child in The Simpsons?",
+        "answers": ["Apu",
+                    "Marge",
+                    "Maggie",
+                    "Lisa"],
         "points": "2",
         "correctAnswer": "2",
-        "imagePath": "images/Image0.jpeg",
-        "incorrectTitle": "Lo siento pero la respuesta correcta es la siguiente....",
-        "incorrectMesssage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "imagePath": "images/Simpson2.png",
+        "incorrectTitle": "A-ha....",
+        "incorrectMessage": "Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister",
         "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
       },
       {
         "questionNumber": "3",      
-        "question": "In which town do the Simpsons reside??",
+        "question": "In which town do the Simpsons reside?",
         "answers": ["Shelbyville",
                     "Springfield",
                     "Ogdenville",
                     "Amitville"],
         "points": "3",
-        "correctAnswer": "0",
-        "imagePath": "images/Star-Wars-Logo-02.jpg",
-        "incorrectTitle": "Lo siento pero la respuesta correcta es la siguiente....",
-        "incorrectMesssage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "correctAnswer": "1",
+        "imagePath": "images/Simpson3.png",
+        "incorrectTitle": "Mmmmhhhhh....",
+        "incorrectMessage": "The Simpsons takes place in the fictional American town of Springfield in an unknown and impossible-to-determine U.S. state",
         "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
       },
-
+      {
+        "questionNumber": "4",      
+        "question": "Who in The Simpsons likes to go skateboarding?",
+        "answers": ["Bart Simpson",
+                    "Jessica Simpson",
+                    "Ned Simpson",
+                    "Apu Simpson"],
+        "points": "1",
+        "correctAnswer": "0",
+        "imagePath": "images/Simpson4.png",
+        "incorrectTitle": "¡Ay, caramba!",
+        "incorrectMessage": "Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
+      },
+      {
+        "questionNumber": "5",      
+        "question": "What is the name of Homer Simpsons mother?",
+        "answers": ["Marge Simpson",
+                    "Edna Simpson",
+                    "Selma Simpson",
+                    "Mona Simpson"],
+        "points": "1",
+        "correctAnswer": "3",
+        "imagePath": "images/Simpson5.png",
+        "incorrectTitle": "¡Ay, caramba!",
+        "incorrectMessage": "Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
+      }
 ]
 
 const poolFinalFeedbackArray = [
@@ -95,6 +122,7 @@ let triviaNumOfQuestions = 0;
 let arrayQuestionPosition = 0;
 let goButtonClicked = false;
 
+// Defining the class for the TRIVIA
 class Trivia {
     constructor(){
         this.score = 0;
@@ -104,8 +132,8 @@ class Trivia {
         if (pUserAnswer === parseInt(pCorrectAnswer)) {
             this.accumulateTriviaScore(pQuestionPoints);
         } else {
-            console.log(currentQuestion.questionNumber);
-            currentDashboard.displayMessage(currentQuestion.incorrectTitle);
+            console.log('Incorrect Message', currentQuestion.incorrectMessage);
+            currentDashboard.displayMessage(currentQuestion.incorrectTitle, currentQuestion.incorrectMessage);
         }            
  
     };
@@ -117,6 +145,7 @@ class Trivia {
     };
 };
 
+// Defining the class for the QUESTION
 class TriviaQuestion {
     constructor(questionNumber, question, answers, points, correctAnswer, imagePath, incorrectTitle, incorrectMessage, incorrectImage) {
         this.questionNumber = parseInt(questionNumber);
@@ -150,9 +179,6 @@ class TriviaQuestion {
     // clearQuestion = () => {
     //     this.htmlCanvasQuestion.textContent = "";        
     // };
-    selectOption = (e) => {
-        console.log(event.target);
-    };
     initAnswersFrame = () => {
         const myListOfAnswers = document.createElement('ul');
         for (let i = 0; i < 4; i++) {
@@ -179,7 +205,6 @@ class TriviaQuestion {
         const htmlCanvasUl = document.querySelectorAll('#questionAnswers ul');
         const htmlCanvasLi = document.querySelectorAll('#questionAnswers ul li');
         for (let i = 0; i < this.answers.length; i++) {
- //           htmlCanvasLi[i].innerText = this.answers[i];
             if (this.questionNumber === 0) {
                 htmlCanvasLi[i].innerHTML = `<a href="#">${this.answers[i]}</a>`
             } else {
@@ -210,23 +235,27 @@ class TriviaQuestion {
     };
 };
 
+// Defining the class for the FEEDBACK DASHBOARD
 class TriviaDashboard {
     constructor() {
         this.title = null;
         this.messsage = null;
         this.image = null;
+        this.htmlIncorrectTitle = document.querySelector('#response-header');
+        this.htmlIncorrectMessage = document.querySelector('#response-comment')
     };
-    displayMessage = (pTitle) => {
+    displayMessage = (pTitle, pMessage) => {
         console.log(pTitle);
+        this.htmlIncorrectTitle.innerText = pTitle;
+        this.htmlIncorrectMessage.innerText = pMessage;
     } 
 }
 
 // creating the instance of the trivia
 const currentTrivia = new Trivia();
+// creating the instance of the dashboard
 const currentDashboard = new TriviaDashboard();
-console.log(currentDashboard);
-
-// Creating the instance and displayig the instructions screen 
+// Creating the instance of the Question initialized with the instructions
 const currentQuestion = new TriviaQuestion(
     poolQuestionsArray[arrayQuestionPosition].questionNumber,
     poolQuestionsArray[arrayQuestionPosition].question,
@@ -238,16 +267,16 @@ const currentQuestion = new TriviaQuestion(
     poolQuestionsArray[arrayQuestionPosition].incorrectMessage,
     poolQuestionsArray[arrayQuestionPosition].incorrectImage
 );
-console.log(currentQuestion);
 
-
+// Displaying the instructions on the screen using the class methods
 currentQuestion.displayQuestion();
 currentQuestion.initAnswersFrame();
 currentQuestion.displayAnswers();
 currentQuestion.initImageFrame();
 currentQuestion.displayImage();
 
-// Displaying next question
+// Function to move to next question it is mainly called by the Next button but also called by Go button after setting
+// the number of questions
 function nextQuestion() {
     arrayQuestionPosition++;
     if (arrayQuestionPosition <= triviaNumOfQuestions) {
@@ -269,12 +298,15 @@ function nextQuestion() {
         currentQuestion.displayQuestion();
         currentQuestion.displayAnswers();
         currentQuestion.displayImage();    
+    } else {
+        console.log('Display result of the trivia');
     }
 }
 
-// Assigning the event listener to the button Next
+// Assigning the event listener to the button Next - The callback function will move to the next question
 const uiButtonNext = document.querySelector('#go-next-button');
 uiButtonNext.addEventListener('click',nextQuestion);
+
 
 function Go() {
     const htmlNumberOfQuestions = document.querySelector('#number-questions');
@@ -309,23 +341,4 @@ uiButtonGo.addEventListener('click',Go);
 //     // optionSelected.classList.add('questionSelected');
 // }
 
-// Detemining if option selected is right or not
-// function evaluateOptionSelected(e) {
-//     if (currentQuestion.userAnswer === parseInt(currentQuestion.correctAnswer)) {
-//         console.log('Correct answer');
-//     } else {
-//         console.log('Incorrect answer');
-//     }
-// }
 
-// function processOptionSelected(e) {
-//     console.log('Evento', event.target)
-//     paintOptionSelected(e);
-//     currentQuestion.userAnswer = event.target.innerText.substring(0,1) - 1;
-//     evaluateOptionSelected(e);
-// };
-
-// const liAnswerOptions = document.querySelectorAll('#questionAnswers ul li');
-// liAnswerOptions.forEach(option => {
-//     option.addEventListener('click',processOptionSelected);
-// });
