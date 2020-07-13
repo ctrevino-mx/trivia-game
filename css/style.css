@@ -15,8 +15,10 @@ header {
     justify-content: center;
     border: 1px solid black;
     background-image: url(http://getwallpapers.com/wallpaper/full/d/2/1/622543.jpg);
-    background-size: initial; 
-    background-position: 0% 45%;
+    /* background-image: url('../images/Header.png');
+    background-color: #FF77C2; */
+    background-size: cover; 
+    background-position: 10% 45%;
     background-repeat: no-repeat;
 
 }
@@ -160,30 +162,23 @@ header {
 
 nav {
     /* border: 1px solid black; */
-    grid-column: span 2;
-    margin-left: 440px;
-    /* display: flex; */
-    /* justify-content: center; */
+    grid-column: span 3;
 }
 
-/* .nav-button {
-    width: 35px;
-    height: 25px;
-    font-family: 'Schoolbell', cursive;
-} */
-
 .general-button {
-    width: 40px;
+    width: 140px;
     height: 25px;
     font-size: 15px;
     font-family: 'Schoolbell', cursive;
-    /* padding-left: 0px; */
     text-align: center;
 }
 
-#submit-button {
-    margin-left: 250px;
-    margin-right: 10px;
+#go-next-button {
+    margin-left: 580px;
+}
+
+#get-rank-button {
+    margin-left: 630px;
 }
 
 footer{

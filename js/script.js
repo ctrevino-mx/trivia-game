@@ -10,7 +10,9 @@ const poolQuestionsArray = [
         "imagePath": "images/Simpson0.png",
         "incorrectTitle": "",
         "incorrectMessage": "",
-        "incorrectImage": ""
+        "incorrectImage": "",
+        "correctTitle": "",
+        "correctMessage": ""
       },
     {    
       "questionNumber": "1",      
@@ -24,7 +26,9 @@ const poolQuestionsArray = [
       "imagePath": "images/Simpson1.png",
       "incorrectTitle": "Dooooh",
       "incorrectMessage": "Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons.",
-      "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
+      "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
+      "correctTitle": "Ay Caramba!",
+      "correctMessage": "You are right! Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons."
     },
     {
         "questionNumber": "2",      
@@ -37,9 +41,11 @@ const poolQuestionsArray = [
         "correctAnswer": "2",
         "imagePath": "images/Simpson2.png",
         "incorrectTitle": "A-ha....",
-        "incorrectMessage": "Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
-      },
+        "incorrectMessage": "Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister.",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "correctTitle": "Wow!!!",
+        "correctMessage": "You are right! Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister."
+    },
       {
         "questionNumber": "3",      
         "question": "In which town do the Simpsons reside?",
@@ -51,9 +57,11 @@ const poolQuestionsArray = [
         "correctAnswer": "1",
         "imagePath": "images/Simpson3.png",
         "incorrectTitle": "Mmmmhhhhh....",
-        "incorrectMessage": "The Simpsons takes place in the fictional American town of Springfield in an unknown and impossible-to-determine U.S. state",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
-      },
+        "incorrectMessage": "Wrong answer! The Simpsons takes place in the fictional American town of Springfield in an unknown and impossible-to-determine U.S. state",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "correctTitle": "Mmm, donuts!!!",
+        "correctMessage": "Awesome! The Simpsons takes place in the fictional American town of Springfield in an unknown and impossible-to-determine U.S. state"
+    },
       {
         "questionNumber": "4",      
         "question": "Who in The Simpsons likes to go skateboarding?",
@@ -65,9 +73,11 @@ const poolQuestionsArray = [
         "correctAnswer": "0",
         "imagePath": "images/Simpson4.png",
         "incorrectTitle": "¡Ay, caramba!",
-        "incorrectMessage": "Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
-      },
+        "incorrectMessage": "You must be kidding! Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "correctTitle": "Woo Hoo!!!",
+        "correctMessage": "Well done! Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief"
+    },
       {
         "questionNumber": "5",      
         "question": "What is the name of Homer Simpsons mother?",
@@ -80,8 +90,10 @@ const poolQuestionsArray = [
         "imagePath": "images/Simpson5.png",
         "incorrectTitle": "¡Ay, caramba!",
         "incorrectMessage": "Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
-      }
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "correctTitle": "Cowabunga!",
+        "correctMessage": "You did it again! Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson"
+    }
 ]
 
 const poolFinalFeedbackArray = [
@@ -127,10 +139,13 @@ class Trivia {
     constructor(){
         this.score = 0;
         this.result = null;
+        this.isThisComplete = false;
     };
     evaluateUserAnswer = (pUserAnswer, pCorrectAnswer, pQuestionPoints) => {
         if (pUserAnswer === parseInt(pCorrectAnswer)) {
             this.accumulateTriviaScore(pQuestionPoints);
+            console.log(currentQuestion.correctTitle);
+            currentDashboard.displayMessage(currentQuestion.correctTitle, currentQuestion.correctMessage, this.score);
         } else {
             console.log('Incorrect Message', currentQuestion.incorrectMessage);
             currentDashboard.displayMessage(currentQuestion.incorrectTitle, currentQuestion.incorrectMessage, this.score);
@@ -139,7 +154,6 @@ class Trivia {
     };
     accumulateTriviaScore = (pQuestionPoints) => {
         this.score += pQuestionPoints;
-        currentDashboard.displayMessage('Hola', 'Hola', this.score);
     };
     knowledgeLevel = () => {
         console.log('Evaluating knowledge...');
@@ -148,7 +162,7 @@ class Trivia {
 
 // Defining the class for the QUESTION
 class TriviaQuestion {
-    constructor(questionNumber, question, answers, points, correctAnswer, imagePath, incorrectTitle, incorrectMessage, incorrectImage) {
+    constructor(questionNumber, question, answers, points, correctAnswer, imagePath, incorrectTitle, incorrectMessage, incorrectImage, correctTitle, correctMessage) {
         this.questionNumber = parseInt(questionNumber);
         this.question = question;
         this.answers = answers;
@@ -158,6 +172,8 @@ class TriviaQuestion {
         this.incorrectTitle = incorrectTitle;
         this.incorrectMessage = incorrectMessage;
         this.incorrectImage = incorrectImage;
+        this.correctTitle = correctTitle;
+        this.correctMessage = correctMessage;
         this.userAnswer = '';
         this.decisionMade = false;
         this.htmlCanvasQuestion = document.querySelector('#questionDescription');
@@ -268,7 +284,9 @@ const currentQuestion = new TriviaQuestion(
     poolQuestionsArray[arrayQuestionPosition].imagePath,
     poolQuestionsArray[arrayQuestionPosition].incorrectTitle,
     poolQuestionsArray[arrayQuestionPosition].incorrectMessage,
-    poolQuestionsArray[arrayQuestionPosition].incorrectImage
+    poolQuestionsArray[arrayQuestionPosition].incorrectImage,
+    poolQuestionsArray[arrayQuestionPosition].correctTitle,
+    poolQuestionsArray[arrayQuestionPosition].correctMessage,
 );
 
 // Displaying the instructions on the screen using the class methods
@@ -302,15 +320,20 @@ function nextQuestion() {
         currentQuestion.incorrectTitle = poolQuestionsArray[arrayQuestionPosition].incorrectTitle;
         currentQuestion.incorrectMessage = poolQuestionsArray[arrayQuestionPosition].incorrectMessage;
         currentQuestion.incorrectImage = poolQuestionsArray[arrayQuestionPosition].incorrectImage;
+        currentQuestion.correctMessage = poolQuestionsArray[arrayQuestionPosition].correctMessage;
+        currentQuestion.correctTitle = poolQuestionsArray[arrayQuestionPosition].correctTitle;
 
         currentQuestion.displayQuestion();
         currentQuestion.displayAnswers();
         currentQuestion.displayImage();    
-    } else if (!currentQuestion.decisionMade) {
-        alert('Pick your answer before moving to the next question!');
+    } else if (currentQuestion.questionNumber === 0) {
+        alert('Set the number of question and go for it Homer!');
+    } else if (!currentQuestion.decisionMade && currentQuestion.questionNumber !==0) {
+            alert('Pick your answer before moving to the next question!');
     } else {
-        console.log('Display the result of the trivia!')
-    }
+            alert('Trivia is complete! Do you want to know your expert rank! Click on "Get your final rank!" butoon');
+            currentTrivia.isThisComplete = true;
+        }
 }
 
 // Assigning the event listener to the button Next - The callback function will move to the next question
