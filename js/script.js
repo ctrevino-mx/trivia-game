@@ -4,7 +4,8 @@ const poolQuestionsArray = [
         "question": "Welcome to the most incredible Simpson`s Trivia!",
         "answers": ["Think you know all there is to know about the world’s favourite cartoon family?",
                     "Test your Simpsons knowledge to the max with 10 questions ranging from incredibly easy to incredibly hard! When you are done with every question, click the button Next to move to the next question.",
-                    "Set the Number of questions and then click Go! button to start!"],
+                    "Set the Number of questions and then click Go! button to start!",
+                    ""],
         "points": "0",
         "correctAnswer": "0",
         "imagePath": "images/Simpson0.png",
@@ -89,7 +90,7 @@ const poolQuestionsArray = [
         "correctAnswer": "3",
         "imagePath": "images/Simpson5.png",
         "incorrectTitle": "¡Ay, caramba!",
-        "incorrectMessage": "Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
+        "incorrectMessage": "That is not the correct answer. Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson",
         "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
         "correctTitle": "Cowabunga!",
         "correctMessage": "You did it again! Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson"
@@ -129,13 +130,15 @@ const poolFinalFeedbackArray = [
     }
 ]
 
-//const triviaQuestionsArray = [];
 let triviaNumOfQuestions = 0;
 let arrayQuestionPosition = 0;
 let triviaQuestionCounter = 0;
 let goButtonClicked = false;
-
+// =======================================================================================
 // Defining the class for the TRIVIA
+// This class will keep data as the trivia score, global score, final knowledge rank, the status of the game (complete or not),
+// questions that will be displayed and the messages for the final feedback once the trivia is complete
+// =======================================================================================
 class Trivia {
     constructor(){
         this.score = 0;
@@ -144,10 +147,9 @@ class Trivia {
         this.isThisComplete = false;
         this.title = '';
         this.message = '';
-        this.currentQuestion=0;
         this.questions = [];
     };
-    defineQuestions = () => {
+    defineQuestions = () => { // Get randomly the set of questions to be displayed
         const arraySize = poolQuestionsArray.length;
         for (let i = 1; i <= triviaNumOfQuestions; i++) {
             let triviaQuestion = Math.floor(Math.random()*arraySize);
@@ -163,12 +165,11 @@ class Trivia {
             }
             this.questions.push(triviaQuestion);
         };
-        console.log(this.questions);
     };
-    getNextQuestion = (pIndex) => {
+    getNextQuestion = (pIndex) => { // Return next question to be displayed
         return this.questions[pIndex];
       };
-    evaluateUserAnswer = (pUserAnswer, pCorrectAnswer, pQuestionPoints) => {
+    evaluateUserAnswer = (pUserAnswer, pCorrectAnswer, pQuestionPoints) => { // Evaluate if the answer is correct or not
         this.totalScore += pQuestionPoints;
         if (pUserAnswer === parseInt(pCorrectAnswer)) {
             this.accumulateTriviaScore(pQuestionPoints);
@@ -178,16 +179,15 @@ class Trivia {
         }
         this.evaluateTriviaStatus();            
     };
-    evaluateTriviaStatus = () => {
- //       if (arrayQuestionPosition === parseInt(triviaNumOfQuestions)) {
+    evaluateTriviaStatus = () => { //Turns a boolena variable if the Trivia is complete and user must request the final rank
         if (triviaQuestionCounter === parseInt(triviaNumOfQuestions)) {
             this.isThisComplete = true;
         }
     }
-    accumulateTriviaScore = (pQuestionPoints) => {
+    accumulateTriviaScore = (pQuestionPoints) => { // Accumulates the score of correct answers
         this.score += pQuestionPoints;
     };
-    getRank = () => {
+    getRank = () => {  // Get the rank based on the formula score / total score
         const grade = Math.round((this.score / this.totalScore) * 100);
         if (grade >= 0 && grade < 19) {
             this.rank = 0;
@@ -201,13 +201,17 @@ class Trivia {
             this.rank = 4;
         }
     };
-    getFinalDashboard = () => {
+    getFinalDashboard = () => { // Get the title and the message for the rank that will be dispalyed in the Dashboard
         this.title = poolFinalFeedbackArray[this.rank].Title;
         this.message = poolFinalFeedbackArray[this.rank].Speaker + poolFinalFeedbackArray[this.rank].Message;
     }
 };
 
-// Defining the class for the QUESTION
+// =======================================================================================
+// Defining the class for the TRIVIA QUESTION
+// This class stores and control all the info related with an specific question itself and it's loaded 
+// from the array poolQuestionsArray
+// =======================================================================================
 class TriviaQuestion {
     constructor(questionNumber, question, answers, points, correctAnswer, imagePath, incorrectTitle, incorrectMessage, incorrectImage, correctTitle, correctMessage) {
         this.questionNumber = parseInt(questionNumber);
@@ -227,37 +231,26 @@ class TriviaQuestion {
         this.htmlCanvasAnswers = document.querySelector('#questionAnswers');
         this.htmlCanvasImage = document.querySelector('#questionImageCanvas')
     }
-    displayQuestion = () => {
+    displayQuestion = () => { // Display the question in the board
         let questionIndicator = '';
         let questionPoints = '';
-        console.log('triviaQuestionCounter', typeof(triviaQuestionCounter));
-        console.log('triviaNumOfQuestions', typeof(triviaNumOfQuestions));
 
-        // if (this.questionNumber < triviaNumOfQuestions) {
         if (triviaQuestionCounter < triviaNumOfQuestions) {
- //           questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / `;
             questionIndicator = `${triviaQuestionCounter} of ${triviaNumOfQuestions} / `; 
             questionPoints = `(${this.points} points)`;
-//        } else if (this.questionNumber === triviaNumOfQuestions  && this.questionNumber > 0) {
         } else if (triviaQuestionCounter === triviaNumOfQuestions  && triviaQuestionCounter > 0) {
-//            questionIndicator = `${this.questionNumber} of ${triviaNumOfQuestions} / LAST QUESTION! - `;
-            console.log('I0m here..')
             questionIndicator = `${triviaQuestionCounter} of ${triviaNumOfQuestions} / LAST QUESTION! - `;
             questionPoints = `(${this.points} points)`;
         }
         this.htmlCanvasQuestion.textContent = `${questionIndicator} ${this.question} ${questionPoints}`;        
     };
-    // clearQuestion = () => {
-    //     this.htmlCanvasQuestion.textContent = "";        
-    // };
-    initAnswersFrame = () => {
+    initAnswersFrame = () => { //Dinamically creates the li elements that will keep the answer options for a specific question
         const myListOfAnswers = document.createElement('ul');
         for (let i = 0; i < 4; i++) {
             const myAnswer = document.createElement('li');
             myAnswer.innerHTML = `<a href="#"></a>`;
-// ================
-            myAnswer.addEventListener('click', (e) => {
-                const optionSelected = event.target;
+            myAnswer.addEventListener('click', (e) => {   // Adding the event listener to every li element. What happens when 
+                const optionSelected = event.target;      // user clicks on them
                 if (!this.decisionMade) {
                     optionSelected.classList.add('questionSelected');
                     this.userAnswer = event.target.innerText.substring(0,1) - 1;
@@ -267,13 +260,11 @@ class TriviaQuestion {
                     alert('Question already answered! Take a look at the dashbord for feedback and then click Next button');
                 }
             })
-// ================
             myListOfAnswers.appendChild(myAnswer);
         }
         this.htmlCanvasAnswers.appendChild(myListOfAnswers);
     };
-    displayAnswers = () => {
-        const htmlCanvasUl = document.querySelectorAll('#questionAnswers ul');
+    displayAnswers = () => { // Display the answers for an specific question in the trivia board
         const htmlCanvasLi = document.querySelectorAll('#questionAnswers ul li');
         for (let i = 0; i < this.answers.length; i++) {
             if (this.questionNumber === 0) {
@@ -283,35 +274,27 @@ class TriviaQuestion {
             }
         };
     };
-    // clearAnswers = () => {
-    //     const htmlCanvasLi = document.querySelectorAll('#questionAnswers ul li');
-    //     htmlCanvasLi.forEach(listElement => {
-    //         listElement.innerText = '';
-    //     });
-    // };
-    initImageFrame = () => {
+    initImageFrame = () => {                            // Create dinamically the img in the trivia dashbord aside the question
         const myImage = document.createElement('img');
         myImage.classList.add('questionImage');       
         this.htmlCanvasImage.appendChild(myImage);        
     }
     displayImage = () => {
-        const myImage = document.querySelector('#questionImageCanvas img');
+        const myImage = document.querySelector('#questionImageCanvas img');  // Display the image for every specific question
         myImage.setAttribute('src', currentQuestion.imagePath);
-        // myImage.setAttribute('width', 100);  
-        // myImage.setAttribute('heigth', 100);  
     };
     clearImage = () => {
-        const myImage = document.querySelector('#questionImageCanvas img');
+        const myImage = document.querySelector('#questionImageCanvas img');  // Clean the image for every specific question
         myImage.setAttribute('src','#');
     };
 };
 
+// =======================================================================================
 // Defining the class for the FEEDBACK DASHBOARD
+// This class displays the different messages in the Trivia Dashboard: Title, Message and Score
+// =======================================================================================
 class TriviaDashboard {
     constructor() {
-        this.title = null;
-        this.messsage = null;
-        this.image = null;
         this.htmlTitle = document.querySelector('#response-header');
         this.htmlMessage = document.querySelector('#response-comment');
         this.htmlScore = document.querySelector('#response-score');
@@ -323,84 +306,68 @@ class TriviaDashboard {
     } 
 }
 
+
+// Function to Initialize trivia with initial directions that are stored in position 0 of poolQuestionsArray
+// This function is called initially when loading the page and when the Play again button is clicked
+function setQuestionBoard (pIndex) {
+    currentQuestion.questionNumber = parseInt(poolQuestionsArray[pIndex].questionNumber);
+    currentQuestion.question = poolQuestionsArray[pIndex].question;
+    currentQuestion.answers = poolQuestionsArray[pIndex].answers;
+    currentQuestion.points = parseInt(poolQuestionsArray[pIndex].points);
+    currentQuestion.correctAnswer = parseInt(poolQuestionsArray[pIndex].correctAnswer);
+    currentQuestion.imagePath = poolQuestionsArray[pIndex].imagePath;
+    currentQuestion.incorrectTitle = poolQuestionsArray[pIndex].incorrectTitle;
+    currentQuestion.incorrectMessage = poolQuestionsArray[pIndex].incorrectMessage;
+    currentQuestion.incorrectImage = poolQuestionsArray[pIndex].incorrectImage;
+    currentQuestion.correctMessage = poolQuestionsArray[pIndex].correctMessage;
+    currentQuestion.correctTitle = poolQuestionsArray[pIndex].correctTitle;
+
+    currentQuestion.displayQuestion();
+    currentQuestion.displayAnswers();
+    currentQuestion.displayImage();
+}
+
+// =======================================================================================
+// Creating instances of Trivia, Question and Dashboard
+// =======================================================================================
 // creating the instance of the trivia
 const currentTrivia = new Trivia();
 // creating the instance of the dashboard
 const currentDashboard = new TriviaDashboard();
 // Creating the instance of the Question initialized with the instructions
-const currentQuestion = new TriviaQuestion(
-    poolQuestionsArray[arrayQuestionPosition].questionNumber,
-    poolQuestionsArray[arrayQuestionPosition].question,
-    poolQuestionsArray[arrayQuestionPosition].answers,
-    poolQuestionsArray[arrayQuestionPosition].points,
-    poolQuestionsArray[arrayQuestionPosition].correctAnswer,
-    poolQuestionsArray[arrayQuestionPosition].imagePath,
-    poolQuestionsArray[arrayQuestionPosition].incorrectTitle,
-    poolQuestionsArray[arrayQuestionPosition].incorrectMessage,
-    poolQuestionsArray[arrayQuestionPosition].incorrectImage,
-    poolQuestionsArray[arrayQuestionPosition].correctTitle,
-    poolQuestionsArray[arrayQuestionPosition].correctMessage,
-);
+const currentQuestion = new TriviaQuestion;
 
-// Displaying the instructions on the screen using the class methods
-currentQuestion.displayQuestion();
+// =======================================================================================
+// Creating dinamically the question's html elements for the four answer options options and the image
+// Also the function is called to initialize the board with the trivia instructions for the first time
+// =======================================================================================
 currentQuestion.initAnswersFrame();
-currentQuestion.displayAnswers();
 currentQuestion.initImageFrame();
-currentQuestion.displayImage();
+setQuestionBoard(0);
 
-// Function to move to next question it is mainly called by the Next button but also called by Go button after setting
-// the number of questions
+// =======================================================================================
+// Function to load the object with the next question info from the array. It is called everytime 
+// we want to move to the next question
+// The list of questions for the trivia are created when user click the go button
+// =======================================================================================
 function nextQuestion() {
-
-//    if (currentQuestion.decisionMade && arrayQuestionPosition < triviaNumOfQuestions) {
     if (currentQuestion.decisionMade && triviaQuestionCounter < triviaNumOfQuestions) {
-        console.log(triviaQuestionCounter);
         const indexQuestion = currentTrivia.getNextQuestion(triviaQuestionCounter);
-        console.log('Next Question', indexQuestion);
         arrayQuestionPosition++;
         triviaQuestionCounter++;
  
-        // currentQuestion.clearQuestion();
-        // currentQuestion.clearAnswers();
         currentQuestion.clearImage();
         currentQuestion.decisionMade = false;
 
-        currentQuestion.questionNumber = poolQuestionsArray[indexQuestion].questionNumber;
-        currentQuestion.question = poolQuestionsArray[indexQuestion].question;
-        currentQuestion.answers = poolQuestionsArray[indexQuestion].answers;
-        currentQuestion.points = poolQuestionsArray[indexQuestion].points;
-        currentQuestion.correctAnswer = poolQuestionsArray[indexQuestion].correctAnswer;
-        currentQuestion.imagePath = poolQuestionsArray[indexQuestion].imagePath;
-        currentQuestion.incorrectTitle = poolQuestionsArray[indexQuestion].incorrectTitle;
-        currentQuestion.incorrectMessage = poolQuestionsArray[indexQuestion].incorrectMessage;
-        currentQuestion.incorrectImage = poolQuestionsArray[indexQuestion].incorrectImage;
-        currentQuestion.correctMessage = poolQuestionsArray[indexQuestion].correctMessage;
-        currentQuestion.correctTitle = poolQuestionsArray[indexQuestion].correctTitle;
-
-
-        // currentQuestion.questionNumber = poolQuestionsArray[arrayQuestionPosition].questionNumber;
-        // currentQuestion.question = poolQuestionsArray[arrayQuestionPosition].question;
-        // currentQuestion.answers = poolQuestionsArray[arrayQuestionPosition].answers;
-        // currentQuestion.points = poolQuestionsArray[arrayQuestionPosition].points;
-        // currentQuestion.correctAnswer = poolQuestionsArray[arrayQuestionPosition].correctAnswer;
-        // currentQuestion.imagePath = poolQuestionsArray[arrayQuestionPosition].imagePath;
-        // currentQuestion.incorrectTitle = poolQuestionsArray[arrayQuestionPosition].incorrectTitle;
-        // currentQuestion.incorrectMessage = poolQuestionsArray[arrayQuestionPosition].incorrectMessage;
-        // currentQuestion.incorrectImage = poolQuestionsArray[arrayQuestionPosition].incorrectImage;
-        // currentQuestion.correctMessage = poolQuestionsArray[arrayQuestionPosition].correctMessage;
-        // currentQuestion.correctTitle = poolQuestionsArray[arrayQuestionPosition].correctTitle;
-
-        currentQuestion.displayQuestion();
-        currentQuestion.displayAnswers();
-        currentQuestion.displayImage();    
+         setQuestionBoard(indexQuestion);   
+ 
     } else if (currentQuestion.questionNumber === 0) {
         alert('Set the number of question and go for it Homer!');
     } else if (!currentQuestion.decisionMade && currentQuestion.questionNumber !==0) {
             alert('Pick your answer before moving to the next question!');
     } else {
             alert('Trivia is complete! Do you want to know your expert rank! Click on "Get your final rank!" butoon');
-        }
+    }
 }
 
 // Assigning the event listener to the button Next - The callback function will move to the next question
@@ -408,19 +375,20 @@ const uiButtonNext = document.querySelector('#go-next-button');
 uiButtonNext.addEventListener('click',nextQuestion);
 
 
+// =======================================================================================
+// Functionallity to start the Trivia. Takes the number of questions selected by the user
+// and call the object currentTrivia to define all the questiosn for this Trivia
+// =======================================================================================
 function Go() {
     const htmlNumberOfQuestions = document.querySelector('#number-questions');
-    if (htmlNumberOfQuestions.value === '') {
+    if (htmlNumberOfQuestions.value === '') {                   // Validate the user selects a number of questions
         alert('Please select the number of questions to go!');
-    } else if (!goButtonClicked)  {
-        goButtonClicked = true;
+    } else if (!goButtonClicked)  {                             // If this is the first time the user click on Go button
+        goButtonClicked = true;                                 
         triviaNumOfQuestions = parseInt(htmlNumberOfQuestions.value);
         currentQuestion.decisionMade = true;
-        
-        //************Getting the questions for the trivia
-        currentTrivia.defineQuestions();
-
-        nextQuestion();
+        currentTrivia.defineQuestions();                        // Call the object Trivia to define the set of questions for the trivia
+        nextQuestion();                                         // Display the first question on the board
     } else {
         alert('Play the game! Answer the question and then click Next button');
     }
@@ -430,12 +398,14 @@ function Go() {
 const uiButtonGo = document.querySelector('#go-button');
 uiButtonGo.addEventListener('click',Go);
 
+// =======================================================================================
+// Functionallity to display the messages in the Trivia Dashboard. We call current trivia object
+// for that
+// =======================================================================================
 function displayFinalFeedback() {
     if (currentTrivia.isThisComplete) {
         currentTrivia.getRank();
         currentTrivia.getFinalDashboard();
-        console.log(currentTrivia.title);
-        console.log(currentTrivia.message);
         currentDashboard.displayMessage(currentTrivia.title, currentTrivia.message, currentTrivia.score, currentTrivia.totalScore);
     } else {
         alert('Please complete the trivia before getting your rank');
@@ -445,24 +415,39 @@ function displayFinalFeedback() {
 const uiButtonRank = document.querySelector('#get-rank-button');
 uiButtonRank.addEventListener('click',displayFinalFeedback);
 
+// =======================================================================================
+// Functionallity to start the trivia for a new game. Basically we initialize Global variables
+// Dashboard and Question board with directions
+// =======================================================================================
+function initializeDashboard () {
+    currentDashboard.displayMessage('Trivia Dashbord', 'Get your feedback here...', 0, 0);
+}
+
 function resetTrivia () {
-    console.log('Resseting trivia...');
+    goButtonClicked = false;
+    triviaQuestionCounter = 0;
+    triviaNumOfQuestions = 0;
+    arrayQuestionPosition = 0;
+
+    const htmlNumberOfQuestions = document.querySelector('#number-questions');
+    htmlNumberOfQuestions.value = '';
+
+    currentTrivia.isThisComplete = false;
+    currentTrivia.title = '';
+    currentTrivia.message = '';
+    currentTrivia.score = 0;
+    currentTrivia.totalScore = 0;
+    currentTrivia.questions = [];
+    currentTrivia.rank = 0;
+    currentTrivia.currentQuestion = 0;
+
+    currentQuestion.userAnswer = '';
+    currentQuestion.decisionMade = false;
+
+    setQuestionBoard(0);
+    initializeDashboard();
 };
+
 // Assigning the event listener to the button to reset the trivia
 const uiButtonReset = document.querySelector('#reset-button');
 uiButtonReset.addEventListener('click', resetTrivia)
-
-// ############################################################################################
-// Paintig the option selected by the user
-// function paintOptionSelected(e) {
-//     const optionSelected = event.target;
-
- //   const previousOptionSelected = currentQuestion.userAnswer;
- //   const uiAllAnchorElements = document.querySelectorAll('#questionAnswers ul li a');
-
-//    if (previousOptionSelected !== '') {
-//        uiAllAnchorElements[previousOptionSelected].classList.remove('questionSelected');
-//    };
-
-//     // optionSelected.classList.add('questionSelected');
-// }

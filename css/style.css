@@ -34,15 +34,7 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* border: 1px solid black; */
 }
-
-/* #timer-box {
-    grid-column: span 1;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 10px;
-} */
 
 .questionLayout {
     border: 1px solid black;
@@ -58,7 +50,6 @@ header {
 
 #questionDescription {
     width: 600px;
-    /* border: 1px solid black; */
 }
 
 .questionLayout hr {
@@ -85,11 +76,6 @@ header {
     font-weight: bold;
 }
 
-/* .questionUnselected {
-    color: black;
-    font-weight: normal; 
-} */
-
 #questionImageCanvas {
     width: 250px;
     height: 220px;
@@ -105,7 +91,6 @@ header {
     border-radius: 20px;
     padding: 10px;
 }
-
 
 #response-feedback {
     border: 1px solid black;
@@ -138,27 +123,6 @@ header {
 #response-score {
     padding-left: 0px;
 }
-
-/* #response-img {
-    width: 200px;
-    height: 180px;
-    object-fit: fill; 
-    border: 1px solid black;
-} */
-
-/* #response-feedback h4 {
-    margin-top: 5px;
-    margin-left: 10px;
-} */
-
-/* #review-later-log ul {
-    border: 2px solid black;
-    margin-top: -5px;
-} */
-
-/* #review-later-log hr {
-    margin-top: -20px;
-} */
 
 nav {
     grid-column: span 3;
