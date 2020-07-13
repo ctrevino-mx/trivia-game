@@ -138,26 +138,48 @@ let goButtonClicked = false;
 class Trivia {
     constructor(){
         this.score = 0;
-        this.result = null;
+        this.totalScore = 0;
+        this.rank = 0;
         this.isThisComplete = false;
+        this.title = '';
+        this.message = '';
     };
     evaluateUserAnswer = (pUserAnswer, pCorrectAnswer, pQuestionPoints) => {
+        this.totalScore += pQuestionPoints;
         if (pUserAnswer === parseInt(pCorrectAnswer)) {
             this.accumulateTriviaScore(pQuestionPoints);
-            console.log(currentQuestion.correctTitle);
-            currentDashboard.displayMessage(currentQuestion.correctTitle, currentQuestion.correctMessage, this.score);
+            currentDashboard.displayMessage(currentQuestion.correctTitle, currentQuestion.correctMessage, this.score, this.totalScore);
         } else {
-            console.log('Incorrect Message', currentQuestion.incorrectMessage);
-            currentDashboard.displayMessage(currentQuestion.incorrectTitle, currentQuestion.incorrectMessage, this.score);
-        }            
- 
+            currentDashboard.displayMessage(currentQuestion.incorrectTitle, currentQuestion.incorrectMessage, this.score, this.totalScore);
+        }
+        this.evaluateTriviaStatus();            
     };
+    evaluateTriviaStatus = () => {
+        if (arrayQuestionPosition === parseInt(triviaNumOfQuestions)) {
+            this.isThisComplete = true;
+        }
+    }
     accumulateTriviaScore = (pQuestionPoints) => {
         this.score += pQuestionPoints;
     };
-    knowledgeLevel = () => {
-        console.log('Evaluating knowledge...');
+    getRank = () => {
+        const grade = Math.round((this.score / this.totalScore) * 100);
+        if (grade >= 0 && grade < 19) {
+            this.rank = 0;
+        } else if (grade >= 20 && grade < 39) {
+            this.rank = 1;
+        } else if (grade >= 40 && grade < 59) {
+            this.rank = 2;
+        } else if (grade >= 60 && grade < 80) {
+            this.rank = 3;
+        } else {
+            this.rank = 4;
+        }
     };
+    getFinalDashboard = () => {
+        this.title = poolFinalFeedbackArray[this.rank].Title;
+        this.message = poolFinalFeedbackArray[this.rank].Speaker + poolFinalFeedbackArray[this.rank].Message;
+    }
 };
 
 // Defining the class for the QUESTION
@@ -262,11 +284,10 @@ class TriviaDashboard {
         this.htmlMessage = document.querySelector('#response-comment');
         this.htmlScore = document.querySelector('#response-score');
     };
-    displayMessage = (pTitle, pMessage, pScore) => {
-        console.log(pTitle);
+    displayMessage = (pTitle, pMessage, pScore, ptotalScore) => {
         this.htmlTitle.innerText = pTitle;
         this.htmlMessage.innerText = pMessage;
-        this.htmlScore.innerText = `Score: ${pScore} points`;
+        this.htmlScore.innerText = `Score: ${pScore} of ${ptotalScore} points`;
     } 
 }
 
@@ -332,7 +353,6 @@ function nextQuestion() {
             alert('Pick your answer before moving to the next question!');
     } else {
             alert('Trivia is complete! Do you want to know your expert rank! Click on "Get your final rank!" butoon');
-            currentTrivia.isThisComplete = true;
         }
 }
 
@@ -358,6 +378,22 @@ function Go() {
 //Assigning the event listener to the button Go
 const uiButtonGo = document.querySelector('#go-button');
 uiButtonGo.addEventListener('click',Go);
+
+function displayFinalFeedback() {
+    if (currentTrivia.isThisComplete) {
+        currentTrivia.getRank();
+        currentTrivia.getFinalDashboard();
+        console.log(currentTrivia.title);
+        console.log(currentTrivia.message);
+        currentDashboard.displayMessage(currentTrivia.title, currentTrivia.message, currentTrivia.score, currentTrivia.totalScore);
+    } else {
+        alert('Please complete the trivia before getting your rank');
+    }
+}
+//Assigning the event listener to the button Get your final rank
+const uiButtonRank = document.querySelector('#get-rank-button');
+uiButtonRank.addEventListener('click',displayFinalFeedback);
+
 
 
 // ############################################################################################
