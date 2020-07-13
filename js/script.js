@@ -7,8 +7,10 @@ const poolQuestionsArray = [
                     "Set the Number of questions and then click Go! button to start!"],
         "points": "0",
         "correctAnswer": "0",
-        "hint": "",
         "imagePath": "images/Image0.jpeg",
+        "incorrectTitle": "",
+        "incorrectMessage": "",
+        "incorrectImage": ""
       },
     {    
       "questionNumber": "1",      
@@ -19,8 +21,10 @@ const poolQuestionsArray = [
                   "Eight"],
       "points": "5",
       "correctAnswer": "0",
-      "hint": "",
-      "imagePath": "images/Star-Wars-Logo-02.jpg"
+      "imagePath": "images/Star-Wars-Logo-02.jpg",
+      "incorrectTitle": "Lo siento pero la respuesta correcta es la siguiente....",
+      "incorrectMesssage": "Lo siento pero la respuesta correcta es la siguiente....",
+      "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
     },
     {
         "questionNumber": "2",      
@@ -31,8 +35,10 @@ const poolQuestionsArray = [
                     "Mr. Bean"],
         "points": "2",
         "correctAnswer": "2",
-        "hint": "He is in the dark side",
-        "imagePath": "images/Image0.jpeg"
+        "imagePath": "images/Image0.jpeg",
+        "incorrectTitle": "Lo siento pero la respuesta correcta es la siguiente....",
+        "incorrectMesssage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
       },
       {
         "questionNumber": "3",      
@@ -43,48 +49,40 @@ const poolQuestionsArray = [
                     "Amitville"],
         "points": "3",
         "correctAnswer": "0",
-        "hint": "He is in the dark side",
-        "imagePath": "images/Star-Wars-Logo-02.jpg"
+        "imagePath": "images/Star-Wars-Logo-02.jpg",
+        "incorrectTitle": "Lo siento pero la respuesta correcta es la siguiente....",
+        "incorrectMesssage": "Lo siento pero la respuesta correcta es la siguiente....",
+        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente...."
       },
 
 ]
 
-const poolResponsesArray = [
+const poolFinalFeedbackArray = [
     {
-    "minTriviaResultPoints": "",
-    "maxTriviaResultsPoints": "20",      
-    "Title": "Are you serious!",
-    "Speaker": "Mr. Burns says:",
-    "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-    "imagePath": "images/Star-Wars-Logo-02.jpeg"
+        "Title": "Are you serious!",
+        "Speaker": "Mr. Burns says:",
+        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+        "imagePath": "images/Star-Wars-Logo-02.jpeg"
     },
     {
-    "minTriviaResultPoints": "21",
-    "maxTriviaResultsPoints": "40",
-    "Title": "Doooh!",
-    "Speaker": "Homer says:",
-    "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-    "imagePath": "images/Image.jpeg"
+        "Title": "Doooh!",
+        "Speaker": "Homer says:",
+        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+        "imagePath": "images/Image.jpeg"
     },
     {
-    "minTriviaResultPoints": "41",
-    "maxTriviaResultsPoints": "60",      
-    "Title": "A-ha!",
-    "Speaker": "Nelson says:",
-    "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-    "imagePath": "images/Star-Wars-Logo-02.jpeg"
+        "Title": "A-ha!",
+        "Speaker": "Nelson says:",
+        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
+        "imagePath": "images/Star-Wars-Logo-02.jpeg"
     },
     {
-        "minTriviaResultPoints": "61",
-        "maxTriviaResultsPoints": "80",      
         "Title": "Are you serious!",
         "Speaker": "Lisa says:",
         "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
         "imagePath": "images/Image0.jpeg"
     },
     {
-        "minTriviaResultPoints": "81",
-        "maxTriviaResultsPoints": "100",      
         "Title": "Are you serious!",
         "Speaker": "Bart says:",
         "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
@@ -95,24 +93,46 @@ const poolResponsesArray = [
 const triviaQuestionsArray = [];
 let triviaNumOfQuestions = 0;
 let arrayQuestionPosition = 0;
-let triviaTotalScore = 0; 
 let goButtonClicked = false;
 
+class Trivia {
+    constructor(){
+        this.score = 0;
+        this.result = null;
+    };
+    evaluateUserAnswer = (pUserAnswer, pCorrectAnswer, pQuestionPoints) => {
+        if (pUserAnswer === parseInt(pCorrectAnswer)) {
+            this.accumulateTriviaScore(pQuestionPoints);
+        } else {
+            console.log(currentQuestion.questionNumber);
+            currentDashboard.displayMessage(currentQuestion.incorrectTitle);
+        }            
+ 
+    };
+    accumulateTriviaScore = (pQuestionPoints) => {
+        this.score += pQuestionPoints;
+    };
+    knowledgeLevel = () => {
+        console.log('Evaluating knowledge...');
+    };
+};
+
 class TriviaQuestion {
-    constructor(questionNumber, question, answers, points, correctAnswer, hint, imagePath) {
+    constructor(questionNumber, question, answers, points, correctAnswer, imagePath, incorrectTitle, incorrectMessage, incorrectImage) {
         this.questionNumber = parseInt(questionNumber);
         this.question = question;
         this.answers = answers;
         this.points = parseInt(points);
         this.correctAnswer = parseInt(correctAnswer);
-        this.hint = hint;
         this.imagePath = imagePath;
+        this.incorrectTitle = incorrectTitle;
+        this.incorrectMessage = incorrectMessage;
+        this.incorrectImage = incorrectImage;
         this.userAnswer = '';
-        this.isHinted = false;
-        this.toReviewLater = false;
+        this.decisionMade = false;
         this.htmlCanvasQuestion = document.querySelector('#questionDescription');
-        this.htmlCanvasAnswers = document.querySelector('#questionAnswers')
-        this.htmlCanvasImage = document.querySelector('#questionImageCanvas');
+        this.htmlCanvasAnswers = document.querySelector('#questionAnswers');
+        this.htmlCanvasImage = document.querySelector('#questionImageCanvas')
     }
     displayQuestion = () => {
         let questionIndicator = '';
@@ -141,15 +161,14 @@ class TriviaQuestion {
 // ================
             myAnswer.addEventListener('click', (e) => {
                 const optionSelected = event.target;
-                optionSelected.classList.add('questionSelected');
-                this.userAnswer = event.target.innerText.substring(0,1) - 1;
-                if (this.userAnswer === parseInt(this.correctAnswer)) {
-                    console.log('Correct answer');
-                    triviaTotalScore += parseInt(this.points);
-                    console.log('Trivia Score', triviaTotalScore);
+                if (!this.decisionMade) {
+                    optionSelected.classList.add('questionSelected');
+                    this.userAnswer = event.target.innerText.substring(0,1) - 1;
+                    this.decisionMade = true;
+                    currentTrivia.evaluateUserAnswer(this.userAnswer,parseInt(this.correctAnswer), parseInt(this.points));    
                 } else {
-                    console.log('Incorrect answer');
-                }            
+                    alert('Question already answered! Take a look at the dashbord for feedback and then click Next button');
+                }
             })
 // ================
             myListOfAnswers.appendChild(myAnswer);
@@ -191,6 +210,22 @@ class TriviaQuestion {
     };
 };
 
+class TriviaDashboard {
+    constructor() {
+        this.title = null;
+        this.messsage = null;
+        this.image = null;
+    };
+    displayMessage = (pTitle) => {
+        console.log(pTitle);
+    } 
+}
+
+// creating the instance of the trivia
+const currentTrivia = new Trivia();
+const currentDashboard = new TriviaDashboard();
+console.log(currentDashboard);
+
 // Creating the instance and displayig the instructions screen 
 const currentQuestion = new TriviaQuestion(
     poolQuestionsArray[arrayQuestionPosition].questionNumber,
@@ -198,8 +233,13 @@ const currentQuestion = new TriviaQuestion(
     poolQuestionsArray[arrayQuestionPosition].answers,
     poolQuestionsArray[arrayQuestionPosition].points,
     poolQuestionsArray[arrayQuestionPosition].correctAnswer,
-    poolQuestionsArray[arrayQuestionPosition].hint,
-    poolQuestionsArray[arrayQuestionPosition].imagePath);
+    poolQuestionsArray[arrayQuestionPosition].imagePath,
+    poolQuestionsArray[arrayQuestionPosition].incorrectTitle,
+    poolQuestionsArray[arrayQuestionPosition].incorrectMessage,
+    poolQuestionsArray[arrayQuestionPosition].incorrectImage
+);
+console.log(currentQuestion);
+
 
 currentQuestion.displayQuestion();
 currentQuestion.initAnswersFrame();
@@ -214,15 +254,18 @@ function nextQuestion() {
         // currentQuestion.clearQuestion();
         // currentQuestion.clearAnswers();
         currentQuestion.clearImage();
+        currentQuestion.decisionMade = false;
 
         currentQuestion.questionNumber = poolQuestionsArray[arrayQuestionPosition].questionNumber;
         currentQuestion.question = poolQuestionsArray[arrayQuestionPosition].question;
         currentQuestion.answers = poolQuestionsArray[arrayQuestionPosition].answers;
         currentQuestion.points = poolQuestionsArray[arrayQuestionPosition].points;
         currentQuestion.correctAnswer = poolQuestionsArray[arrayQuestionPosition].correctAnswer;
-        currentQuestion.hint = poolQuestionsArray[arrayQuestionPosition].hint;
         currentQuestion.imagePath = poolQuestionsArray[arrayQuestionPosition].imagePath;
-    
+        currentQuestion.incorrectTitle = poolQuestionsArray[arrayQuestionPosition].incorrectTitle;
+        currentQuestion.incorrectMessage = poolQuestionsArray[arrayQuestionPosition].incorrectMessage;
+        currentQuestion.incorrectImage = poolQuestionsArray[arrayQuestionPosition].incorrectImage;
+
         currentQuestion.displayQuestion();
         currentQuestion.displayAnswers();
         currentQuestion.displayImage();    
