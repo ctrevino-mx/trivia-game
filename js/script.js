@@ -133,12 +133,13 @@ class Trivia {
             this.accumulateTriviaScore(pQuestionPoints);
         } else {
             console.log('Incorrect Message', currentQuestion.incorrectMessage);
-            currentDashboard.displayMessage(currentQuestion.incorrectTitle, currentQuestion.incorrectMessage);
+            currentDashboard.displayMessage(currentQuestion.incorrectTitle, currentQuestion.incorrectMessage, this.score);
         }            
  
     };
     accumulateTriviaScore = (pQuestionPoints) => {
         this.score += pQuestionPoints;
+        currentDashboard.displayMessage('Hola', 'Hola', this.score);
     };
     knowledgeLevel = () => {
         console.log('Evaluating knowledge...');
@@ -241,13 +242,15 @@ class TriviaDashboard {
         this.title = null;
         this.messsage = null;
         this.image = null;
-        this.htmlIncorrectTitle = document.querySelector('#response-header');
-        this.htmlIncorrectMessage = document.querySelector('#response-comment')
+        this.htmlTitle = document.querySelector('#response-header');
+        this.htmlMessage = document.querySelector('#response-comment');
+        this.htmlScore = document.querySelector('#response-score');
     };
-    displayMessage = (pTitle, pMessage) => {
+    displayMessage = (pTitle, pMessage, pScore) => {
         console.log(pTitle);
-        this.htmlIncorrectTitle.innerText = pTitle;
-        this.htmlIncorrectMessage.innerText = pMessage;
+        this.htmlTitle.innerText = pTitle;
+        this.htmlMessage.innerText = pMessage;
+        this.htmlScore.innerText = `Score: ${pScore} points`;
     } 
 }
 
@@ -278,8 +281,13 @@ currentQuestion.displayImage();
 // Function to move to next question it is mainly called by the Next button but also called by Go button after setting
 // the number of questions
 function nextQuestion() {
-    arrayQuestionPosition++;
-    if (arrayQuestionPosition <= triviaNumOfQuestions) {
+    console.log(currentQuestion.decisionMade);
+    console.log(arrayQuestionPosition);
+
+    if (currentQuestion.decisionMade && arrayQuestionPosition < triviaNumOfQuestions) {
+        console.log('updating arrayQuestionPosition');
+        arrayQuestionPosition++;
+        console.log(arrayQuestionPosition);
         // currentQuestion.clearQuestion();
         // currentQuestion.clearAnswers();
         currentQuestion.clearImage();
@@ -298,8 +306,10 @@ function nextQuestion() {
         currentQuestion.displayQuestion();
         currentQuestion.displayAnswers();
         currentQuestion.displayImage();    
+    } else if (!currentQuestion.decisionMade) {
+        alert('Pick your answer before moving to the next question!');
     } else {
-        console.log('Display result of the trivia');
+        console.log('Display the result of the trivia!')
     }
 }
 
@@ -315,6 +325,7 @@ function Go() {
     } else if (!goButtonClicked)  {
         goButtonClicked = true;
         triviaNumOfQuestions = htmlNumberOfQuestions.value;
+        currentQuestion.decisionMade = true;
         nextQuestion();
     } else {
         alert('Play the game! Answer the question and then click Next button');
