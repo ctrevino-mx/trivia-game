@@ -98,7 +98,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* align-items: center;  Commented */
+    /* align-items: center;*/
     background-color:#FFFFFF; 
 }
 

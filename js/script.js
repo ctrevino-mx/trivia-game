@@ -239,13 +239,13 @@ const poolFinalFeedbackArray = [
     {
         "Title": "Woo hoo!",
         "Speaker": "Homer says ",
-        "Message": "Good Work! Please keep watching The Simpsons insted of exercisind and socializing.\nClick on 'Play Again' to start a new trivia",
+        "Message": "Good Work! Please keep watching The Simpsons instead of exercising and socializing. Just get a Duff\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     },
     {
         "Title": "Excellent!",
         "Speaker": "Mr. Burns wants to tell you this: ",
-        "Message": "You have demostrated an elevanted knowledge about The Simpsons. I'm not releasing the Hounds at this time.\nClick on 'Play Again' to start a new trivia",
+        "Message": "You have demonstrated an elevated knowledge about The Simpsons. I'm not releasing the Hounds at this time.\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     }
 ];
@@ -387,7 +387,7 @@ class TriviaQuestion {
             const myAnswer = document.createElement('li');
             myAnswer.innerHTML = `<a href="#"></a>`;
             myAnswer.addEventListener('click', (e) => {   // Adding the event listener to every li element. What happens when 
-                const optionSelected = event.target;      // user clicks on them
+                const optionSelected = event.target;      
                 if (!this.decisionMade && this.questionNumber !== 0) {
                     optionSelected.classList.add('questionSelected');
                     this.userAnswer = event.target.innerText.substring(0,1) - 1;
@@ -564,28 +564,33 @@ function initializeDashboard () {
 }
 
 function resetTrivia () {
-    goButtonClicked = false;
-    triviaQuestionCounter = 0;
-    triviaNumOfQuestions = 0;
-    arrayQuestionPosition = 0;
-
-    const htmlNumberOfQuestions = document.querySelector('#number-questions');
-    htmlNumberOfQuestions.value = '';
-
-    currentTrivia.isThisComplete = false;
-    currentTrivia.title = '';
-    currentTrivia.message = '';
-    currentTrivia.score = 0;
-    currentTrivia.totalScore = 0;
-    currentTrivia.questions = [];
-    currentTrivia.rank = 0;
-    currentTrivia.currentQuestion = 0;
-
-    currentQuestion.userAnswer = '';
-    currentQuestion.decisionMade = false;
-
-    setQuestionBoard(0);
-    initializeDashboard();
+    if (currentTrivia.isThisComplete) {
+        goButtonClicked = false;
+        triviaQuestionCounter = 0;
+        triviaNumOfQuestions = 0;
+        arrayQuestionPosition = 0;
+    
+        const htmlNumberOfQuestions = document.querySelector('#number-questions');
+        htmlNumberOfQuestions.value = '';
+    
+        currentTrivia.isThisComplete = false;
+        currentTrivia.title = '';
+        currentTrivia.message = '';
+        currentTrivia.score = 0;
+        currentTrivia.totalScore = 0;
+        currentTrivia.questions = [];
+        currentTrivia.rank = 0;
+        currentTrivia.currentQuestion = 0;
+    
+        currentQuestion.userAnswer = '';
+        currentQuestion.decisionMade = false;
+    
+        setQuestionBoard(0);
+        initializeDashboard();
+    } else {
+        alert('Please complete the trivia before play it again');
+    }
+ 
 };
 
 // Assigning the event listener to the button to reset the trivia
