@@ -128,7 +128,14 @@ const poolFinalFeedbackArray = [
         "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
         "imagePath": "images/Star-Wars-Logo-02.jpeg"
     }
-]
+];
+const imagesArray = ['images/Simpson0.png','images/Simpson1.png', 'images/Simpson2.png',
+                'images/Simpson3.png','images/Simpson4.png','images/Simpson5.png',
+                'images/Simpson6.png'];
+
+const colorScheme = [['#70D1FE', '#FFFFFF', '#FED90F'],['#107DC0','#D6E69F', '#FFD521'],
+                    ['#009DDC','#FED41D','#F14E28'], ['#7BC242','#B4CA8A','#FFD521']
+                ];
 
 let triviaNumOfQuestions = 0;
 let arrayQuestionPosition = 0;
@@ -251,7 +258,8 @@ class TriviaQuestion {
             myAnswer.innerHTML = `<a href="#"></a>`;
             myAnswer.addEventListener('click', (e) => {   // Adding the event listener to every li element. What happens when 
                 const optionSelected = event.target;      // user clicks on them
-                if (!this.decisionMade) {
+                console.log(this.questionNumber);
+                if (!this.decisionMade && this.questionNumber !== 0) {
                     optionSelected.classList.add('questionSelected');
                     this.userAnswer = event.target.innerText.substring(0,1) - 1;
                     this.decisionMade = true;
@@ -279,9 +287,10 @@ class TriviaQuestion {
         myImage.classList.add('questionImage');       
         this.htmlCanvasImage.appendChild(myImage);        
     }
-    displayImage = () => {
+    displayImage = (pPath) => {
         const myImage = document.querySelector('#questionImageCanvas img');  // Display the image for every specific question
-        myImage.setAttribute('src', currentQuestion.imagePath);
+ //       myImage.setAttribute('src', currentQuestion.imagePath);
+       myImage.setAttribute('src', pPath);
     };
     clearImage = () => {
         const myImage = document.querySelector('#questionImageCanvas img');  // Clean the image for every specific question
@@ -324,7 +333,9 @@ function setQuestionBoard (pIndex) {
 
     currentQuestion.displayQuestion();
     currentQuestion.displayAnswers();
-    currentQuestion.displayImage();
+    if (pIndex === 0) {
+        changeImage();
+    }
 }
 
 // =======================================================================================
@@ -356,7 +367,7 @@ function nextQuestion() {
         arrayQuestionPosition++;
         triviaQuestionCounter++;
  
-        currentQuestion.clearImage();
+ //       currentQuestion.clearImage();
         currentQuestion.decisionMade = false;
 
          setQuestionBoard(indexQuestion);   
@@ -451,3 +462,42 @@ function resetTrivia () {
 // Assigning the event listener to the button to reset the trivia
 const uiButtonReset = document.querySelector('#reset-button');
 uiButtonReset.addEventListener('click', resetTrivia)
+
+// =======================================================================================
+// Functionallity to images in the question board every 5 seconds
+// =======================================================================================
+imageTimer = setInterval(changeImage, 5000);
+
+function changeImage() {
+    const indexImage = Math.floor(Math.random() * imagesArray.length);
+    
+    currentQuestion.displayImage(imagesArray[indexImage]);
+}
+
+// =======================================================================================
+// Functionallity to set color schemes
+// =======================================================================================
+
+function setColorScheme() {
+    const uiSelectScheme = document.querySelector('#select-scheme');
+    const uiWrapper = document.querySelector('.wrapper'); 
+    const uiQuestionLayout = document.querySelector('.questionLayout');
+    const uiFooter = document.querySelector('footer');
+
+    const colorWrapper = colorScheme[uiSelectScheme.value][0];
+    const colorQuestionLayout = colorScheme[uiSelectScheme.value][1];
+    const colorFooter = colorScheme[uiSelectScheme.value][2];
+
+    console.log(`Background-color: ${colorWrapper};`);
+    uiWrapper.setAttribute('style', `Background-color: ${colorWrapper};`);
+    uiQuestionLayout.setAttribute('style', `Background-color: ${colorQuestionLayout};`);
+    uiFooter.setAttribute('style', `Background-color: ${colorFooter};`);
+    console.log(uiWrapper);
+
+//     .questionLayout
+//     footer
+}
+
+// Assigning the event listener to the button to set color scheme
+const uiSelectScheme = document.querySelector('#select-scheme');
+uiSelectScheme.addEventListener('change', setColorScheme);

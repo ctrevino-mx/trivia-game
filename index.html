@@ -13,11 +13,12 @@
             <h1></h1>
         </header>
         <div class="trivia-controls">
-            <select id="select-topic">
-                <option value="">--Please select a topic--</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option> 
-                </option>
+            <select id="select-scheme">
+                <option value="">--Please select color scheme--</option>
+                <option value="0">Homer Simpson</option>
+                <option value="1">Marge Simpson</option> 
+                <option value="2">Bart Simpson</option> 
+                <option value="3">Edna Krabappel</option> 
             </select>
             <select id="number-questions">
                 <option value="">--Number of questions--</option>
@@ -25,11 +26,9 @@
                 <option value="5">5</option>
                 <option value="10">10</option> 
             </select>
-            <!-- <label><input type="checkbox" id="set-timer" value="yes">Timer?</input></label> -->
             <button id="go-button" class="general-button">Go Homer!</button>
             <button id="reset-button" class="general-button">Play Again</button>
         </div>
-        <!-- <div id="timer-box">Timer</div> -->
         <div class = "questionLayout">
             <div class = "question" id="questionDescription"></div>
             <hr>
@@ -39,21 +38,13 @@
  
         <div id="response-feedback">
             <h3 id='response-header'>Trivia Dashbord</h3>
-            <!-- <hr style="width:100%;text-align:left;margin-left:0"> -->
             <p id="response-comment">Get your feedback here...</p>
             <p id="response-score">See your score here...</p>
-            <!-- <img id='response-img' src="images/Image0.jpeg"></img>     -->
         </div>        
         <nav>
-            <!-- <button id="go-first-button" class="nav-button" class="general-button"><<</button>
-            <button id="go-down-button" class='nav-button'><</button> -->
             <button id="go-next-button" class="nav-button, general-button">Next</button>
             <button id="get-rank-button" class='nav-button, general-button'>Get your final rank</button>
-            <!-- <button id="submit-button">Submit answers</button> -->
         </nav>
-        <!-- <div class="submit-section">
-            <button id="submit-button">Submit answers</button>
-        </div> -->
         <footer>
             <p>Simpson's Trivia developed by Cesar Trevino, Monterrey, Mexico 2020</p>
         </footer>
