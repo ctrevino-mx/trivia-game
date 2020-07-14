@@ -7,8 +7,8 @@ const poolQuestionsArray = [
         "questionNumber": "0",      
         "question": "Welcome to the most incredible Simpson`s Trivia!",
         "answers": ["Think you know all there is to know about the world’s favourite cartoon family?",
-                    "Test your Simpsons knowledge to the max with 10 questions ranging from incredibly easy to incredibly hard! When you are done with every question, click the button Next to move to the next question.",
-                    "Set the Number of questions and then click Go! button to start!",
+                    "Test your Simpsons knowledge to the max with up to 10 questions ranging from incredibly easy to incredibly hard! When you are done with every question, click the button Next to move to the next question.",
+                    "Set the color scheme and the number of questions and then click 'Go Homer!' button to start!",
                     ""],
         "points": "0",
         "correctAnswer": "0",
@@ -106,7 +106,7 @@ const poolQuestionsArray = [
                     "747 Evergreen Place",
                     "745 Evergreen Street",
                     "747 Evergeen Road"],
-        "points": "1",
+        "points": "3",
         "correctAnswer": "0",
         "imagePath": "images/Simpson5.png",
         "incorrectTitle": "Homer says: Aaaargh!",
@@ -154,7 +154,7 @@ const poolQuestionsArray = [
                     "Eating clay",
                     "Eating paper",
                     "Eating flowers"],
-        "points": "1",
+        "points": "5",
         "correctAnswer": "3",
         "imagePath": "",
         "incorrectTitle": "Bart says: Aw, Geez!",
@@ -221,31 +221,31 @@ const poolFinalFeedbackArray = [
     {
         "Title": "WhaaaaaAAAAAT?!",
         "Speaker": "Moe has someting to tell you: ",
-        "Message": "Don't tell anyone you tried this trivia. By the way The Simpsons is an American animated sitcom created in 1989",
+        "Message": "Don't tell anyone you tried this trivia. By the way The Simpsons is an American animated sitcom created in 1989.\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     },
     {
         "Title": "I don't think it was good idea!",
         "Speaker": "Mr. Burns is yelling at you: ",
-        "Message": "I'm so dissapointed. Just run! Smitheeers, release the hounds",
+        "Message": "I'm so dissapointed. Just run! Smitheeers, release the hounds.\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     },
     {
         "Title": "Boring! I'll be at Moe's!",
-        "Speaker": "Homer says:",
-        "Message": "You tried your best and you failed miserably. The lesson is, never try",
+        "Speaker": "Homer says: ",
+        "Message": "You tried your best and you failed miserably. The lesson is, never try.\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     },
     {
         "Title": "Woo hoo!",
-        "Speaker": "Homer says:",
-        "Message": "Good Work! Please keep watching The Simpsons insted of exercisind and socializing",
+        "Speaker": "Homer says ",
+        "Message": "Good Work! Please keep watching The Simpsons insted of exercisind and socializing.\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     },
     {
         "Title": "Excellent!",
-        "Speaker": "Mr. Burns wants to tell you this :",
-        "Message": "You have demostrated an elevanted knowledge about The Simpons. I'm not releasing the Hounds at this time.",
+        "Speaker": "Mr. Burns wants to tell you this: ",
+        "Message": "You have demostrated an elevanted knowledge about The Simpsons. I'm not releasing the Hounds at this time.\nClick on 'Play Again' to start a new trivia",
         "imagePath": ""
     }
 ];
