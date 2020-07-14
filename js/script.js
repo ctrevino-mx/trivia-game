@@ -1,3 +1,7 @@
+// =======================================================================================
+// Array that contains the info for all the questions (Trivia instructions is the question 0)
+// This data is displayed in the question board
+// =======================================================================================
 const poolQuestionsArray = [
     {
         "questionNumber": "0",      
@@ -22,14 +26,14 @@ const poolQuestionsArray = [
                   "Ned",
                   "Moe",
                   "Homer"],
-      "points": "10",
+      "points": "1",
       "correctAnswer": "3",
-      "imagePath": "images/Simpson1.png",
-      "incorrectTitle": "Dooooh",
-      "incorrectMessage": "Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons.",
-      "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
-      "correctTitle": "Ay Caramba!",
-      "correctMessage": "You are right! Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons."
+      "imagePath": "",
+      "incorrectTitle": "Homer says: D'oh!!",
+      "incorrectMessage": "Wrong! Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons.",
+      "incorrectImage": "",
+      "correctTitle": "Bart says: Ay Caramba!",
+      "correctMessage": "Correct! Homer Jay Simpson is the fictional character and the father of the American animated sitcom The Simpsons."
     },
     {
         "questionNumber": "2",      
@@ -40,12 +44,12 @@ const poolQuestionsArray = [
                     "Lisa"],
         "points": "2",
         "correctAnswer": "2",
-        "imagePath": "images/Simpson2.png",
-        "incorrectTitle": "A-ha....",
-        "incorrectMessage": "Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister.",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
-        "correctTitle": "Wow!!!",
-        "correctMessage": "You are right! Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister."
+        "imagePath": "",
+        "incorrectTitle": "Nelson says: Ha-ha!",
+        "incorrectMessage": "Bad answer. Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister.",
+        "incorrectImage": "",
+        "correctTitle": "Homer says: Woo hoo!!!",
+        "correctMessage": "Fine! Maggie is the youngest child of Homer and Marge. She received her first name from Groening's youngest sister."
     },
       {
         "questionNumber": "3",      
@@ -54,13 +58,13 @@ const poolQuestionsArray = [
                     "Springfield",
                     "Ogdenville",
                     "Amitville"],
-        "points": "3",
+        "points": "1",
         "correctAnswer": "1",
-        "imagePath": "images/Simpson3.png",
-        "incorrectTitle": "Mmmmhhhhh....",
+        "imagePath": "",
+        "incorrectTitle": "Marge says: Mmm~mmmmmmmm",
         "incorrectMessage": "Wrong answer! The Simpsons takes place in the fictional American town of Springfield in an unknown and impossible-to-determine U.S. state",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
-        "correctTitle": "Mmm, donuts!!!",
+        "incorrectImage": "",
+        "correctTitle": "Homer says: Mmm, donuts!!!",
         "correctMessage": "Awesome! The Simpsons takes place in the fictional American town of Springfield in an unknown and impossible-to-determine U.S. state"
     },
       {
@@ -69,14 +73,14 @@ const poolQuestionsArray = [
         "answers": ["Bart Simpson",
                     "Jessica Simpson",
                     "Ned Simpson",
-                    "Apu Simpson"],
-        "points": "1",
+                    "Lisa Simpson"],
+        "points": "2",
         "correctAnswer": "0",
-        "imagePath": "images/Simpson4.png",
-        "incorrectTitle": "¡Ay, caramba!",
+        "imagePath": "",
+        "incorrectTitle": "Bart says: ¡Ay, caramba!",
         "incorrectMessage": "You must be kidding! Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief",
-        "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
-        "correctTitle": "Woo Hoo!!!",
+        "incorrectImage": "",
+        "correctTitle": "Bart says: Cowabunga!",
         "correctMessage": "Well done! Bart's hobbies include skateboarding, watching television (especially The Krusty the Clown Show), reading comic books (especially Radioactive Man) and generally causing mischief"
     },
       {
@@ -86,61 +90,187 @@ const poolQuestionsArray = [
                     "Edna Simpson",
                     "Selma Simpson",
                     "Mona Simpson"],
+        "points": "3",
+        "correctAnswer": "3",
+        "imagePath": "",
+        "incorrectTitle": "Bart says: Aw, Man!",
+        "incorrectMessage": "You fail! Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson",
+        "incorrectImage": "",
+        "correctTitle": "Bart says: Whoa, Mama!",
+        "correctMessage": "You did it again! Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson"
+    },
+    {
+        "questionNumber": "6",      
+        "question": "What is the name Simpson's address?",
+        "answers": ["742 Evergeen Terrace",
+                    "747 Evergreen Place",
+                    "745 Evergreen Street",
+                    "747 Evergeen Road"],
+        "points": "1",
+        "correctAnswer": "0",
+        "imagePath": "images/Simpson5.png",
+        "incorrectTitle": "Homer says: Aaaargh!",
+        "incorrectMessage": "Wrong answer! For 23 seasons, The Simpsons have lived at 742 Evergreen Terrace in Springfield.",
+        "incorrectImage": "",
+        "correctTitle": "Ned says: Okily Dokily!",
+        "correctMessage": "That's rigth! For 23 seasons, The Simpsons have lived at 742 Evergreen Terrace in Springfield."
+    },
+    {
+        "questionNumber": "7",      
+        "question": "What is the name of the store owned by Ned Flanders after he left his job as a clerk?",
+        "answers": ["Righty Tighty",
+                    "Helping Hands",
+                    "The Leftorioum",
+                    "Kwik-E-Mart"],
+        "points": "3",
+        "correctAnswer": "2",
+        "imagePath": "",
+        "incorrectTitle": "Bumblebee Man: Ay Ay Ay!",
+        "incorrectMessage": "This is not good! The Leftorium was owned by Ned Flanders, who had quit his job as a pharmaceutical company clerk",
+        "incorrectImage": "",
+        "correctTitle": "Ned says: Toodily-Doo!",
+        "correctMessage": "Nice! The Leftorium was owned by Ned Flanders, who had quit his job as a pharmaceutical company clerk"
+    },
+    {
+        "questionNumber": "8",      
+        "question": "What was the name of Homer's barbershop quartet?",
+        "answers": ["The Be Minors",
+                    "The Be Sharps",
+                    "The Beatles",
+                    "The Springfield Stones"],
+        "points": "5",
+        "correctAnswer": "1",
+        "imagePath": "",
+        "incorrectTitle": "Homers says: Why you little!",
+        "incorrectMessage": "Wrong answer!. After recruiting Barney who has a beautiful tenor voice they brainstormed on a name for the group, settling on the Be Sharps",
+        "incorrectImage": "",
+        "correctTitle": "Todd says: Yay!!!",
+        "correctMessage": "Very good! After recruiting Barney who has a beautiful tenor voice they brainstormed on a name for the group, settling on the Be Sharps"
+    },
+    {
+        "questionNumber": "9",      
+        "question": "What is Homer’s secret shame?",
+        "answers": ["Eating Krusty-burguers",
+                    "Eating clay",
+                    "Eating paper",
+                    "Eating flowers"],
         "points": "1",
         "correctAnswer": "3",
-        "imagePath": "images/Simpson5.png",
-        "incorrectTitle": "¡Ay, caramba!",
-        "incorrectMessage": "That is not the correct answer. Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson",
+        "imagePath": "",
+        "incorrectTitle": "Bart says: Aw, Geez!",
+        "incorrectMessage": "This is not good! Bart uncovered this secret when he yield at Homer 'Oh go eat some flowers!!!'",
         "incorrectImage": "Lo siento pero la respuesta correcta es la siguiente....",
-        "correctTitle": "Cowabunga!",
-        "correctMessage": "You did it again! Mona Penelope Simpson was the estranged wife of Abe Simpson and the mother of Homer Simpson"
+        "correctTitle": "Krusty the Clown: Hey, Hey Kid!",
+        "correctMessage": "Well done! Bart uncovered this secret when he yield at Homer 'Oh go eat some flowers!!!'"
+    },
+    {
+        "questionNumber": "10",      
+        "question": "How many children does Apu have?",
+        "answers": ["8",
+                    "7",
+                    "10",
+                    "6"],
+        "points": "3",
+        "correctAnswer": "0",
+        "imagePath": "",
+        "incorrectTitle": "Bart says: Eat my shorts!",
+        "incorrectMessage": "Ups!. Manjula receives too many doses of fertility drugs, leading to her giving birth to octuplets.",
+        "incorrectImage": "",
+        "correctTitle": "Skinner says: Attention student!...",
+        "correctMessage": "You did it again! Manjula receives too many doses of fertility drugs, leading to her giving birth to octuplets."
+    },
+    {
+        "questionNumber": "11",      
+        "question": "When The Simpsons go into witness protection, what is their new surname?",
+        "answers": ["Thompson",
+                    "Olson",
+                    "Johnson",
+                    "Smith"],
+        "points": "4",
+        "correctAnswer": "0",
+        "imagePath": "",
+        "incorrectTitle": "Homers says: Stupid Flanders!",
+        "incorrectMessage": "Never trust in Ned. The Simpsons join the Witness Protection Program and relocate to Terror Lake, changing their surname to Thompson",
+        "incorrectImage": "",
+        "correctTitle": "Milhouse says: Radical!",
+        "correctMessage": "A good one! The Simpsons join the Witness Protection Program and relocate to Terror Lake, changing their surname to Thompson"
+    },
+    {
+        "questionNumber": "12",      
+        "question": "What is the Apu's surname?",
+        "answers": ["Patel",
+                    "Balakrishnan",
+                    "Nahasapeemapetilon",
+                    "Jackson"],
+        "points": "5",
+        "correctAnswer": "2",
+        "imagePath": "",
+        "incorrectTitle": "Bart says: Get Bent!",
+        "incorrectMessage": "Not the good one. His surname is Nahasapeemapetilon, and it was first used in the episode 'A Streetcar Named Marge'",
+        "incorrectImage": "",
+        "correctTitle": "Milhouse says: Everything’s coming up Milhouse!",
+        "correctMessage": "Great! His surname is Nahasapeemapetilon, and it was first used in the episode 'A Streetcar Named Marge'"
     }
 ]
 
+// =======================================================================================
+// Array that contains the info for all rank levels
+// Based on the trivia results the correct messages are be selected from this array
+// =======================================================================================
 const poolFinalFeedbackArray = [
     {
-        "Title": "Are you serious!",
-        "Speaker": "Mr. Burns says:",
-        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-        "imagePath": "images/Star-Wars-Logo-02.jpeg"
+        "Title": "WhaaaaaAAAAAT?!",
+        "Speaker": "Moe has someting to tell you: ",
+        "Message": "Don't tell anyone you tried this trivia. By the way The Simpsons is an American animated sitcom created in 1989",
+        "imagePath": ""
     },
     {
-        "Title": "Doooh!",
+        "Title": "I don't think it was good idea!",
+        "Speaker": "Mr. Burns is yelling at you: ",
+        "Message": "I'm so dissapointed. Just run! Smitheeers, release the hounds",
+        "imagePath": ""
+    },
+    {
+        "Title": "Boring! I'll be at Moe's!",
         "Speaker": "Homer says:",
-        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-        "imagePath": "images/Image.jpeg"
+        "Message": "You tried your best and you failed miserably. The lesson is, never try",
+        "imagePath": ""
     },
     {
-        "Title": "A-ha!",
-        "Speaker": "Nelson says:",
-        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-        "imagePath": "images/Star-Wars-Logo-02.jpeg"
+        "Title": "Woo hoo!",
+        "Speaker": "Homer says:",
+        "Message": "Good Work! Please keep watching The Simpsons insted of exercisind and socializing",
+        "imagePath": ""
     },
     {
-        "Title": "Are you serious!",
-        "Speaker": "Lisa says:",
-        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-        "imagePath": "images/Image0.jpeg"
-    },
-    {
-        "Title": "Are you serious!",
-        "Speaker": "Bart says:",
-        "Message": "Smithers, Suelte a los perros. Tenemos un incompentente antes nuestros ojos",
-        "imagePath": "images/Star-Wars-Logo-02.jpeg"
+        "Title": "Excellent!",
+        "Speaker": "Mr. Burns wants to tell you this :",
+        "Message": "You have demostrated an elevanted knowledge about The Simpons. I'm not releasing the Hounds at this time.",
+        "imagePath": ""
     }
 ];
+// =======================================================================================
+// Array that contains the images displayed in the question board every five seconds
+// =======================================================================================
 const imagesArray = ['images/Simpson0.png','images/Simpson1.png', 'images/Simpson2.png',
                 'images/Simpson3.png','images/Simpson4.png','images/Simpson5.png',
                 'images/Simpson6.png'];
 
-const colorScheme = [['#70D1FE', '#FFFFFF', '#FED90F'],['#107DC0','#D6E69F', '#FFD521'],
-                    ['#009DDC','#FED41D','#F14E28'], ['#7BC242','#B4CA8A','#FFD521']
+// =======================================================================================
+// Array that contains the colors and image for each color scheme
+// =======================================================================================
+const colorScheme = [['#70D1FE', '#FFFFFF', '#FED90F','images/HomerScheme.png'],['#107DC0','#D6E69F', '#FFD521','images/MargeScheme.png'],
+                    ['#009DDC','#FED41D','#F14E28','images/BartScheme.png'], ['#7BC242','#B4CA8A','#FFD521','images/EdnaScheme.png']
                 ];
 
+// =======================================================================================
+// Global variables initialization
+// =======================================================================================
 let triviaNumOfQuestions = 0;
 let arrayQuestionPosition = 0;
 let triviaQuestionCounter = 0;
 let goButtonClicked = false;
+
 // =======================================================================================
 // Defining the class for the TRIVIA
 // This class will keep data as the trivia score, global score, final knowledge rank, the status of the game (complete or not),
@@ -258,7 +388,6 @@ class TriviaQuestion {
             myAnswer.innerHTML = `<a href="#"></a>`;
             myAnswer.addEventListener('click', (e) => {   // Adding the event listener to every li element. What happens when 
                 const optionSelected = event.target;      // user clicks on them
-                console.log(this.questionNumber);
                 if (!this.decisionMade && this.questionNumber !== 0) {
                     optionSelected.classList.add('questionSelected');
                     this.userAnswer = event.target.innerText.substring(0,1) - 1;
@@ -483,19 +612,17 @@ function setColorScheme() {
     const uiWrapper = document.querySelector('.wrapper'); 
     const uiQuestionLayout = document.querySelector('.questionLayout');
     const uiFooter = document.querySelector('footer');
+    const uiResponseFeedback = document.querySelector('#response-feedback');
 
     const colorWrapper = colorScheme[uiSelectScheme.value][0];
     const colorQuestionLayout = colorScheme[uiSelectScheme.value][1];
     const colorFooter = colorScheme[uiSelectScheme.value][2];
+    const imageResponseFeedback = colorScheme[uiSelectScheme.value][3];
 
-    console.log(`Background-color: ${colorWrapper};`);
     uiWrapper.setAttribute('style', `Background-color: ${colorWrapper};`);
     uiQuestionLayout.setAttribute('style', `Background-color: ${colorQuestionLayout};`);
     uiFooter.setAttribute('style', `Background-color: ${colorFooter};`);
-    console.log(uiWrapper);
-
-//     .questionLayout
-//     footer
+    uiResponseFeedback.style.backgroundImage = `url('${imageResponseFeedback}')`;
 }
 
 // Assigning the event listener to the button to set color scheme
