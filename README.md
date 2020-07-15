@@ -71,7 +71,11 @@ As a regular trivia the purpose is
 - - -
 * Web browser
 * Internet connectivity
+* Link to the game: [Get fun!](https://ctrevino-mx.github.io/trivia-game/)
 
 ## User interface
 - - -
+
+
+Screenshot:
 ![](readme_items/trivia-screenshot.png)
