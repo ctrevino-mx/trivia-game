@@ -40,7 +40,7 @@ As a regular trivia the purpose is
 ## Solution
 - - -
 ### Flow chart
-![](readme_items/trivia-flowchart.png)
+![](readme_items/trivia-flowchart-ss.png)
 
 ### Approach
 * Four arrays
